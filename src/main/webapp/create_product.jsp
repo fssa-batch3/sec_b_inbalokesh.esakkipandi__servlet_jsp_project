@@ -11,7 +11,9 @@
 	<div>
 		<h1>Create New Product</h1>
 		<form action="create" method="post">
-			
+			<label>Image : </label> <input type="url" name="image"
+				 required /> <br> <br>
+				 
 			<label>Food Name : </label> <input type="text" name="name"
 				 required /> <br> <br>
 				

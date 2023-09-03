@@ -42,11 +42,11 @@ public class CreateUserServlet extends HttpServlet {
 			userService.createNewUser(user);
 			out.print("User has been created sucessfully");
 			
-			response.sendRedirect(request.getContextPath()+"/users");
+			response.sendRedirect(request.getContextPath()+"/login");
 			
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.print(e.getMessage());
+			throw new ServletException(e.getMessage());
 		}
 	}
 

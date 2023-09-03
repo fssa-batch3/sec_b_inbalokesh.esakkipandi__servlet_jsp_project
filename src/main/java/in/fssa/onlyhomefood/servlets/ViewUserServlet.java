@@ -32,6 +32,7 @@ public class ViewUserServlet extends HttpServlet {
 			
 		} catch (NumberFormatException | ValidationException | ServiceException e) {
 			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
 	}
 

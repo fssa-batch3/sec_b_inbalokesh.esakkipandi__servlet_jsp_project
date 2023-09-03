@@ -1,8 +1,6 @@
 package in.fssa.onlyhomefood.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,24 +13,21 @@ import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.service.ProductService;
 
 /**
- * Servlet implementation class CreateProductServlet
+ * Servlet implementation class UpdateProductServlet
  */
-@WebServlet("/product/create")
-public class CreateProductServlet extends HttpServlet {
+@WebServlet("/product/update")
+public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		ProductService productService = new ProductService();
 		Product product = new Product();
-
-		PrintWriter out = response.getWriter();
-
+		
 		product.setImage(request.getParameter("image"));
 		product.setName(request.getParameter("name"));
 		product.setType(request.getParameter("type"));
@@ -41,16 +36,14 @@ public class CreateProductServlet extends HttpServlet {
 		product.setQuantityType(request.getParameter("quantity_type"));
 
 		try {
-			productService.createNewProduct(product);
-			out.print("Product has been created sucessfully");
-
-			response.sendRedirect(request.getContextPath() + "/products");
+			productService.updateProduct(id, product);
+			
+			response.sendRedirect(request.getContextPath()+"/products");
 
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
-
 	}
 
 }

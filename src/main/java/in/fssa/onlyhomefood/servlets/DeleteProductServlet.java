@@ -9,33 +9,34 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
-import in.fssa.onlyhomefood.service.UserService;
+import in.fssa.onlyhomefood.service.ProductService;
 
 /**
- * Servlet implementation class DeleteUserServlet
+ * Servlet implementation class DeleteProductServlet
  */
-@WebServlet("/user/delete")
-public class DeleteUserServlet extends HttpServlet {
+@WebServlet("/product/delete")
+public class DeleteProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		UserService userService = new UserService();
+		ProductService productService = new ProductService();
 		
 		try {
-			userService.deleteUser(id);
-			
-			response.sendRedirect(request.getContextPath()+"/users");
+			productService.deleteProduct(id);
+			response.sendRedirect(request.getContextPath()+"/products");
 
-			
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
+
 	}
+
 
 }

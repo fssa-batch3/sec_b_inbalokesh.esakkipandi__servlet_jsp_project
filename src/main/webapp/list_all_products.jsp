@@ -25,6 +25,9 @@ table, th, td {
 th, td {
 	padding: 10px;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -35,23 +38,23 @@ th, td {
 		
 	<table>
 		<tr>
+			<th>Image</th>
 			<th>Name</th>
 			<th>Type</th>
 			<th>Price</th>
 			<th>Quantity</th>
 			<th>Quantity Type</th>
-			<th>View</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
 		<%for(Product product : listOfProducts){%>
 		<tr>
+			<td><img src="<%= product.getImage()%>" alt="<%= product.getImage()%> Image" height = "70px"></td>
 			<td> <%= product.getName() %> </td>
 			<td> <%= product.getType() %> </td>
 			<td> <%= product.getPrice() %> </td>
 			<td> <%= product.getQuantity() %> </td>
 			<td> <%= product.getQuantityType() %> </td>
-			<td><a href="product/view?id=<%= product.getId()%>"><button>View</button></a></td>
 			<td><a href="product/edit?id=<%= product.getId()%>"><button>Edit</button></a></td>
 			<td><a href="product/delete?id=<%= product.getId()%>"><button>Delete</button></a></td>
 		</tr>

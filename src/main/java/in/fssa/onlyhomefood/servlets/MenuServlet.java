@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.fssa.onlyhomefood.exception.ServiceException;
-import in.fssa.onlyhomefood.model.User;
-import in.fssa.onlyhomefood.service.UserService;
+import in.fssa.onlyhomefood.model.Product;
+import in.fssa.onlyhomefood.service.ProductService;
 
 /**
- * Servlet implementation class ListUserServlet
+ * Servlet implementation class MenuServlet
  */
-@WebServlet("/users")
-public class ListUserServlet extends HttpServlet {
+@WebServlet("/menu")
+public class MenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -28,19 +28,19 @@ public class ListUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UserService userService = new UserService();
+		ProductService productService = new ProductService();
 		try {
-			Set<User> users = userService.getAllUsers();
-			
-			request.setAttribute("list_users", users);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/list_all_users.jsp");
+			Set<Product> listofproducts = productService.getAllProducts();
+
+			request.setAttribute("allProducts", listofproducts);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/menu.jsp");
 			rd.forward(request, response);
 
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
-	}
 
+	}
 }
