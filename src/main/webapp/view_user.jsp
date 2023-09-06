@@ -85,7 +85,7 @@ body {
 	<%
 	user = (User) request.getAttribute("users");
 	%>
-
+	
 	<div class="profile-container">
 		<center>
 			<h1>Profile</h1>
