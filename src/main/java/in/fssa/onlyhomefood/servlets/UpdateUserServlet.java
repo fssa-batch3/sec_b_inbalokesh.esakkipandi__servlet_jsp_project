@@ -30,16 +30,17 @@ public class UpdateUserServlet extends HttpServlet {
 		UserService userService = new UserService();
 		User user = new User();
 		PrintWriter out = response.getWriter();
+		
 		user.setName(request.getParameter("user_name"));
-		user.setEmail(request.getParameter("email"));
 		user.setMobNumber(Long.parseLong(request.getParameter("phone_number")));
+		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
-
+		
 		try {
 			userService.updateUser(id, user);
 			out.print("User has been updated sucessfully");
 			
-			response.sendRedirect(request.getContextPath()+"/users");
+			response.sendRedirect(request.getContextPath()+"/profile");
 			
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();

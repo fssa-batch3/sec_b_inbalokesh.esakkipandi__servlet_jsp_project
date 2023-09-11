@@ -17,21 +17,25 @@ import in.fssa.onlyhomefood.service.UserService;
 @WebServlet("/user/delete")
 public class DeleteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
 		UserService userService = new UserService();
-		
+
 		try {
 			userService.deleteUser(id);
-			
-			response.sendRedirect(request.getContextPath()+"/users");
 
-			
+			request.getSession().removeAttribute("loggedNumber");
+			request.getSession().invalidate();
+			response.sendRedirect(request.getContextPath() + "/home");
+
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());

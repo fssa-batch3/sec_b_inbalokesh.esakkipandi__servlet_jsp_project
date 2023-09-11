@@ -1,3 +1,4 @@
+<%@page import="in.fssa.onlyhomefood.model.User"%>
 <%@page import="in.fssa.onlyhomefood.model.Product"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -5,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Cart</title>
 <style>
 body {
 	margin: 0;
@@ -187,6 +188,60 @@ textarea {
 .sumlist button.place_order:hover {
 	transform: scale(1.03);
 }
+
+.content{
+    height: 100vh;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    position: fixed;
+    left:50%;
+    top:100%;
+    transform:translate(-50%, -100%);
+}
+
+.placed{
+    display:none;
+    background-color:white;
+    height:260px;
+    width:400px;
+    border:solid 2px #32c671;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0 20px 20px;
+    color:#333;
+    box-shadow: -2px 4px 37px -16px rgba(115,201,96,1);
+}
+
+.placed img{
+    height:60px;
+    width:60px;
+    position:relative;
+    bottom:18px;   
+}
+
+.placed h2{
+    font-size: 30px;
+}
+
+.placed a button{
+    margin-top: 15px;
+    height:40px;
+    width:120px;
+    background-color:#32c671;
+    color:white;
+    cursor: pointer;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    border-color: transparent;
+    border-radius: 30px;   
+}
+
+.placed a button:hover{
+    transform: scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -194,14 +249,34 @@ textarea {
 	Product product = (Product) request.getAttribute("product");
 	%>
 
+	<%
+	User user = (User) request.getAttribute("user");
+	%>
+	
+	<%
+	String status = request.getParameter("order");
+	System.out.println(status);
+	%>
+
+
 	<jsp:include page="header.jsp"></jsp:include>
 
 
 	<div class="hord">
-		<h1>My Order</h1>
+		<h1>My Cart</h1>
 	</div>
-
-
+	
+	<div class="content">
+    	<div class="placed">
+	        <img src="https://iili.io/J90pzF4.th.png" alt="tick image">
+	        <h2>Thank you!</h2>
+	        <p>Your order has been placed sucessfully.</p>
+	        <a href="menu">
+	            <button>Back</button>
+	        </a>
+    	</div>
+  	</div>
+  
 	<section class="order-container">
 		<div class="list">
 			<div class="lorder">
@@ -269,24 +344,32 @@ textarea {
 			let price = ${product.getPrice()};
 			let delivery_time = document.querySelector(".select").value;
 			let status = "Not_delivered";
-			let created_by = "3";
-			let total_price = (price*order_quantity);
+			let created_by = ${user.getId()};
+			let total_price = (price * order_quantity);
 
 			if (address == "") {
 				alert("Please fill in the address");
 			} else {
 				// Construct the URL with query parameters using JavaScript
-				const url = "order/create?" + "address="+ encodeURIComponent(address) +
-						"&delivery_time=" + encodeURIComponent(delivery_time) + 
-						"&status=" + encodeURIComponent(status) + 
-						"&created_by=" + encodeURIComponent(created_by) +
-						"&product_id=" + encodeURIComponent(product_id) + 
-						"&order_quantity=" + encodeURIComponent(order_quantity) + 
-						"&total_price=" + encodeURIComponent(total_price);
+				const url = "order/create?" + "address="
+						+ encodeURIComponent(address) + "&delivery_time="
+						+ encodeURIComponent(delivery_time) + "&status="
+						+ encodeURIComponent(status) + "&created_by="
+						+ encodeURIComponent(created_by) + "&product_id="
+						+ encodeURIComponent(product_id) + "&order_quantity="
+						+ encodeURIComponent(order_quantity) + "&total_price="
+						+ encodeURIComponent(total_price);
 
 				// Navigate to the URL with the query parameters
 				window.location.href = url;
 			}
+		}
+		
+		let result = <%=status%>;
+		if(result){
+            document.querySelector(".placed").setAttribute("style", "display:inline-block");
+            document.querySelector(".order-container").setAttribute("style","opacity:0");
+
 		}
 	</script>
 

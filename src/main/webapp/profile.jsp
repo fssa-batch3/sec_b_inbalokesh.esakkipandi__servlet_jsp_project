@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Profile</title>
 <style>
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
 }
 
 section {
@@ -58,14 +59,6 @@ section {
 	cursor: pointer;
 }
 
-#delete_user {
-	margin-left: 35px;
-}
-
-#logout_user {
-	margin-left: 60px;
-}
-
 input {
 	height: 20px;
 	border-color: transparent;
@@ -91,7 +84,11 @@ textarea {
 </head>
 <body>
 
-	<%User user = (User)request.getAttribute("user"); %>
+	<%
+	User user = (User) request.getAttribute("user");
+	%>
+
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<section>
 		<div class="pro">
@@ -101,23 +98,28 @@ textarea {
 					<img src="https://iili.io/J9z9WMu.th.jpg" alt="Profile image"
 						height="250px" width="250px">
 					<div class="button_row">
-						<button type="button" id="edit-btn">Edit profile</button>
-						<a href="<%=request.getContextPath()%>/logout"><button type="submit" id="logout_user">Logout</button></a>
+						<a
+							href="<%=request.getContextPath()%>/user/edit?id=<%=user.getId()%>"><button
+								type="button" id="edit-btn">Edit profile</button></a> <a
+							href="<%=request.getContextPath()%>/user/delete?id=<%=user.getId()%>"><button
+								type="button" id="delete-btn">Delete</button></a> <a
+							href="<%=request.getContextPath()%>/logout"><button
+								type="submit" id="logout_user">Logout</button></a>
 					</div>
 
 				</div>
 				<div>
 					<div class="sep">
 						<label>Name</label> <input type="text" id="user_name"
-						value="${user.getName()}" disabled>
+							value="${user.getName()}" disabled>
 					</div>
 					<div class="sep">
 						<label>Mobile No</label> <input type="tel" id="user_phonenumber"
-						 value="${user.getMobNumber()}" disabled>
+							value="${user.getMobNumber()}" disabled>
 					</div>
 					<div class="sep">
 						<label>Email</label> <input type="email" id="user_email"
-						 value="${user.getEmail()}" disabled>
+							value="${user.getEmail()}" disabled>
 					</div>
 				</div>
 			</div>

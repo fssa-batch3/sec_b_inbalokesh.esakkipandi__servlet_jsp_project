@@ -1,7 +1,6 @@
 package in.fssa.onlyhomefood.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,14 +27,10 @@ public class CreateOrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
 		OrderService orderService = new OrderService();
 		
 		Order order = new Order();
-		
-		String data = request.getParameter("data");
-		System.out.println(data);
-		
+				
 		order.setAddress(request.getParameter("address"));
 		order.setDelivery_time(DeliveryTime.valueOf(request.getParameter("delivery_time")));
 		order.setOrder_status(OrderStatus.valueOf(request.getParameter("status")));
@@ -46,11 +41,11 @@ public class CreateOrderServlet extends HttpServlet {
 		
 		try {
 			orderService.createNewOrder(order);
-			out.print("Order created Sucessfully");
+			response.sendRedirect(request.getContextPath() + "/order?id=" + Integer.parseInt(request.getParameter("product_id"))+"&order=true");
 			
 		} catch (ValidationException | ServiceException e) {
-			
 			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
 	}
 

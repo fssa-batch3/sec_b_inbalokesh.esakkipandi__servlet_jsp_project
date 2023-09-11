@@ -1,15 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Only Home Food</title>
+<meta charset="ISO-8859-1">
+<title>Admin Home Page</title>
 <style>
-/* Add your CSS styles here */
-/* Reset some default styles */
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	margin:0;
+	margin: 0;
 }
 
 ::-webkit-scrollbar {
@@ -50,8 +49,8 @@ section {
 }
 
 .intro img {
-	height: 60%;
-	width: 60%;
+	height: 65%;
+	width: 50%;
 	border-radius: 50px;
 }
 
@@ -65,26 +64,22 @@ section {
 	width: 80%;
 	margin-bottom: 50px;
 }
-
 </style>
 </head>
 <body>
 
-<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<section class="int">
 		<div class="intro">
 			<div class="intpara">
-				<h1>Welcome to Only Home Food</h1>
-				<p>We bring the taste of mothers food in a healthy way to your
-					doorstep.</p>
-				<a href="menu">
-					<button class="btn">ORDER NOW</button>
-				</a>
+				<h1>Welcome Admin</h1>
+				<p>Where flavors tell stories and every meal is a journey back to the heart.</p>
 			</div>
-			<img src="https://iili.io/J9Hpv72.md.webp" alt="food image">
+			<img
+				src="https://fssa-batch3.github.io/inbalokesh.esakkipandi__web_project/assets/Images/our%20aim.webp"
+				alt="food image">
 		</div>
 	</section>
-	
 </body>
 </html>

@@ -87,15 +87,16 @@ textarea {
 </head>
 <body>
 	<div class="log">
+	
 		<div class="loginbox">
 			<img src="https://iili.io/J9Fiktn.md.png" alt="logo">
 
 			<h1>Login</h1>
 			<form action="login" method="post">
 				<label>Mobile No : </label> <input type="tel" name="phone_number"
-					placeholder="Ex : 9988776600" required /> <br> <br> <label>Password
+					placeholder="Ex : 9988776600" required/> <br> <br> <label>Password
 					: </label> <input type="password" name="password" placeholder="Inba1234"
-					required /> <br> <br>
+					required/> <br> <br>
 				<button type="submit">Login</button>
 				<p>Don't have an account ? <a href="user/new">Sign Up Here</a></p>
 			</form>

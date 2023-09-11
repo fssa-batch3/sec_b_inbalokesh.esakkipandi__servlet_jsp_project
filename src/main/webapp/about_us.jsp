@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>About us</title>
 <style>
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

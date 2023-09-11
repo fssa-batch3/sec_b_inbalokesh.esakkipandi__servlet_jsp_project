@@ -40,8 +40,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UserService userService = new UserService();	
-
+		UserService userService = new UserService();
+		
 		Long number = Long.parseLong(request.getParameter("phone_number"));
 		String password = request.getParameter("password");
 
@@ -49,14 +49,15 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			userService.loginUser(number, password);
-
 			session.setAttribute("loggedNumber", number);
 			
-			response.sendRedirect(request.getContextPath() + "/home");
+			if (number == 9876543218l) {
+				response.sendRedirect(request.getContextPath() + "/admin");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/home");
+			}
 
 		} catch (ServiceException | ValidationException e) {
-			e.printStackTrace();
-			response.sendRedirect("login?errorMessage=" + e.getMessage());
 			throw new ServletException(e.getMessage());
 		}
 	}

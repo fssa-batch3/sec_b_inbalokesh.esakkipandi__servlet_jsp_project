@@ -94,6 +94,28 @@ body {
 		</div>
 	</header>
 	<%
+	} else if (loggedUser == 9876543218l) {
+	%>
+	<header class="header">
+		<div class="shead">
+			<a href="admin"><img src="https://iili.io/J9Fiktn.md.png"
+				alt="Logo" height="80px" width="100px"></a>
+			<h1>ONLY HOME FOOD</h1>
+		</div>
+		<div class="head">
+			<nav class="navbar">
+				<a class="navigation__link" href="<%= request.getContextPath()%>/product/new">Create Product</a> 
+				<a class="navigation__link" href="<%= request.getContextPath()%>/products">Product List</a>
+			</nav>
+			<div class="Profile">
+				<a href="logout">
+					<button>Log Out</button>
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<%
 	} else {
 	%>
 	<header class="header">
@@ -106,7 +128,7 @@ body {
 			<nav class="navbar">
 				<a class="navigation__link" href="home">Home</a> <a
 					class="navigation__link" href="menu">Menu</a> <a
-					class="navigation__link" href="order?id=26">My Order</a> <a
+					class="navigation__link" href="order?id=26">Cart</a> <a
 					class="navigation__link" href="profile">Profile</a>
 			</nav>
 		</div>
