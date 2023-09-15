@@ -1,0 +1,292 @@
+@import "normalize.css";
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.btn{
+    color: white;
+    background-color: #5cb748;
+    border-color: transparent;
+    cursor: pointer;
+    height:50px;
+    width:170px;
+    font-weight: bold;
+    border-radius: 50px;
+    letter-spacing: 1px;
+}
+
+.btn:hover{
+    color: white;
+    background-color: #5cb748;
+    transform:scale(1.1);
+    border-color: transparent;
+    height:50px;
+    width:170px;
+    font-weight: bold;
+    border-radius: 50px;
+    letter-spacing: 1px;
+}
+
+section{
+    margin: 140px 140px;
+}
+
+.intro{
+    display:flex;
+    justify-content: space-around;
+}
+
+.intro img{
+    height:60%;
+    width:60%;
+    border-radius: 50px;
+}
+
+.intpara h1{
+    font-size:4.375rem; 
+    color:#408531;
+}
+
+.intpara p{
+    font-size:30px;
+    width:80%;
+    margin-bottom: 50px;
+}
+
+.works{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'PT Sans Narrow', sans-serif;    
+}
+
+.works img{
+    max-height: 90%;
+    max-width:90%;
+}
+
+.works h2{
+    color:#008A90;
+    font-size: 45px;
+}
+
+.works h3{
+    color: gray;
+    font-size: 22px;
+}
+
+.tpara{
+    line-height: 25px;
+    letter-spacing: 0.5px;
+    text-align: justify;
+}
+
+.tpara p{
+    width:500px;
+}
+
+section.h h2{
+    font-size: 40px;
+    text-align: center;
+    height:50px;
+    color: rgb(43, 35, 35);
+    padding-top: 30px;
+    border-radius: 5px;
+    margin-top: 20px;    
+}
+
+.hiw{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.hbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: solid 1px black;
+    padding: 10px 30px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+    height:300px;
+    width:300px;
+}    
+
+.hbox:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 0px rgb(0 0 0 / 10%);
+}
+
+.hpara{
+    position: relative;
+    bottom:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    line-height: 1.4;
+    word-spacing:1px;
+}
+
+.fpara{
+    position: relative;
+    bottom:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    word-spacing:2px;
+    text-align: justify;
+}
+
+.foot{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content:center;
+    align-items:center;
+    margin-top: 50px;
+    background-color:rgb(237, 236, 236);
+}
+
+.footer{
+    margin-top:10px;
+}
+
+.footer img{
+    height:30px;
+    width:30px;  
+}
+
+.phone{
+    display:flex;
+    flex-direction:row;
+}
+
+.phone img{
+    margin-top:6px;
+    margin-right:10px;   
+}
+
+@media (max-width:1022px) {
+    .intro{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-top: 50px;
+    }
+    .intpara h1{
+        font-size: 50px;
+    }
+    .intpara p{
+        font-size: 25px;
+    }
+    .intro img{
+        width:70%;
+        min-width:30rem;
+        border-radius: 50px;
+    }
+    .works{
+        margin: 0;
+        flex-direction: column;
+    }
+    .works img{
+        max-width:30rem;
+    }
+    .hiw{
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .hbox{
+        margin-top: 30px;
+    }
+}
+
+@media (max-width:565px) {
+    .intro img{
+        min-width: 18rem;
+        border-radius: 50px;
+    }
+    .intpara h1{
+        font-size: 35px;
+        margin-left: 30px;
+    }
+    .intpara p{
+        font-size: 20px;
+        margin-left: 30px;
+    }
+    .btn{
+        color: white;
+        background-color: #5cb748;
+        border-color: transparent;
+        cursor: pointer;
+        height:30px;
+        width:100px;
+        font-weight: bold;
+        border-radius: 30px;
+        letter-spacing: 1px;
+        font-size: 10px;
+        margin-left: 30px;
+    }
+    .btn:hover{
+        color: white;
+        background-color: #5cb748;
+        border-color: transparent;
+        cursor: pointer;
+        height:30px;
+        width:100px;
+        font-weight: bold;
+        border-radius: 30px;
+        letter-spacing: 1px;
+        font-size: 10px;
+        margin-left: 30px;
+        transform:scale(1.1);
+    }
+    section{
+        margin:10px 20px;
+    }
+    .works img{
+        margin-top:50px;
+        height:12rem;
+    }
+    .tpara p{
+        width:300px;
+        font-size: 3vw;
+    }
+    .tpara h2{
+        font-size: 30px;
+    }
+    .tpara h3{
+        font-size: 20px;
+    }
+    section.h h2{
+        font-size:30px;
+    }
+    .hbox{
+        width:200px;
+    }
+    .hpara h3{
+        font-size: 15px;
+    }
+    .hpara p{
+        font-size: 14px;
+    }
+    .fpara h3{
+        font-size: 15px;
+    }
+    .fpara p{
+        font-size: 14px;
+    }
+    .foot{
+        font-size: 13px;
+    }
+}

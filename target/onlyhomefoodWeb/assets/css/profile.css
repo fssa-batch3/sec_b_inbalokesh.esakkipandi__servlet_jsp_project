@@ -1,0 +1,274 @@
+body{
+    height:100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top:100px;
+    height:85vh;
+}
+.pro{
+    height:32rem;
+    width:32rem;
+    color:black;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+/* .button_row{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+} */
+.history{
+    width:450px;
+}
+
+.pro h1{
+    background-color:#5cb748;
+    border-radius: 10px 10px 0 0;
+    margin:0;
+    color:white;
+    text-align: center;
+}
+
+.pbox{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top:50px;
+}
+
+.pbox img{
+    margin-top: 15px;
+}
+
+.pbox button{
+    height:30px;
+    margin-top: 30px;
+    margin-left: 20px;
+    color:white;
+    border-color:transparent;
+    border-radius: 5px;
+    background-color: #FF7223;
+    cursor: pointer;
+}
+
+#delete_user{
+    margin-left: 35px;
+}
+
+#logout_user{
+    margin-left: 60px;
+}
+
+input{
+    height:20px;
+    border-color: transparent;
+}
+
+textarea{
+    height:90px;
+    border-color: transparent;
+    resize: none;
+}
+
+.sep{
+    display: flex;
+    flex-direction: column;
+    margin-top:20px;
+    width:90%;
+}
+
+.overflowbox{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-margin-top: 100px;
+    max-width: 1000px;
+    max-height: 525px;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.history h2{
+    text-align: center;
+}
+
+.obox{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding:20px;
+    width:80%;
+    margin:30px;
+}
+
+.obox p{
+    color:grey;
+}
+
+.ihead{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.item h3:nth-child(2){
+    margin-top:0;
+}
+
+.total{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: grey 1px solid;
+    border-bottom: grey 1px solid;
+    margin-bottom:15px;
+}
+
+.total h4{
+    margin:10px;
+}
+
+.ndel{
+    color: tomato;
+}
+
+.del{
+    color:#5cb748;
+}
+.cancel{
+    color:#595959;
+}
+
+
+.order_by h4{
+    color: rgb(94, 93, 93);    
+}
+
+.view_button button{
+    background-color: white;
+    border: 2px solid forestgreen;
+    width:100%;
+    border-radius: 4px;
+}
+
+.view_button button:hover{
+    background-color: #e7f5e3;
+    transform: scale(1.05);
+}
+
+.rate p.rs{
+    color:black;
+    font-weight: bold;
+}
+
+.rate{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+}
+
+.details{
+    width:150px;
+}
+
+.ratee{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+}
+
+@media (max-width:1100px){
+    section{
+        height:155vh;
+        flex-direction: column;
+        align-items: center;
+    }    
+}
+
+@media (max-width:580px){
+    section{
+        margin-top: 50px;
+        
+    }
+    .overflowbox{
+        display: flex;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        padding: 0;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .history{
+        width:100%;
+    }
+    .history h2{
+        margin-top:50px;
+    }
+    .pro{
+        border-radius: 0;
+        width:100%;
+        height:105%;
+    }
+    .pro h1 {
+        border-radius: 0;
+    }
+    .pbox{
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0;
+    }
+    .pbox button {
+        margin-top: 10px;
+        width: 90%;
+    }
+    #delete_user{
+        margin-left: 20px;
+    }
+    
+    #logout_user{
+        margin-left: 20px;
+    }
+    .imgb{
+        width:40%;
+    }
+
+    .pbox img{
+        height:100%;
+        width:100%;
+        border:3px solid rgb(93, 93, 93);
+        border-radius: 50%; 
+    }
+    h3,h4,p{
+        font-size: 12px;
+    }
+    .obox{
+        margin: 20px;
+    }
+    .item{
+        width:200px;
+    }
+    .order_by h4{
+        font-size:12px;
+    } 
+    .view_button button {
+        margin-top: 20px;
+        font-size: 13px;
+    }
+   .foot p{
+    font-size: 13px;
+   }
+   .foot{
+    margin-top: 90px;
+   }
+}
+@media (max-width:380px){
+   .history h2{
+    margin-top:50px;
+   }
+}

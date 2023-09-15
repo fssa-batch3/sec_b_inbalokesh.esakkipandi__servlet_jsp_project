@@ -1,3 +1,10 @@
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Comparator"%>
+<%@page import="java.util.TreeSet"%>
+<%@page import="in.fssa.onlyhomefood.model.User"%>
 <%@page import="in.fssa.onlyhomefood.model.Product"%>
 <%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -5,168 +12,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Menu</title>
-<style>
-body {
-	overflow-x: hidden;
-	margin: 0;
-}
+<link href="assets/css/menu.css" rel="stylesheet" type="text/css">
 
-::-webkit-scrollbar {
-	display: none;
-}
-
-h1.he {
-	text-align: center;
-	margin: 50px;
-	background-color: #5cb748;
-	color: white;
-	width: 100%;
-	position: relative;
-	right: 50px;
-}
-
-.menu {
-	background-color: rgb(244, 244, 244);
-	display: flex;
-	justify-content: center;
-	border-radius: 50px;
-}
-
-.menu a {
-	text-decoration: none;
-	color: Black;
-	margin: 5px 20px;
-	padding: 10px;
-}
-
-.menu a:hover {
-	border-bottom: 2px solid #FF7223;
-	color: black;
-}
-
-.menu a.all {
-	border-bottom: 2px solid #FF7223;
-	color: black;
-}
-
-.top {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 50px;
-}
-
-.details {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	grid-gap: 100px;
-	grid-auto-flow: dense;
-	margin: 10px 80px 60px 80px;
-	place-items: center;
-}
-
-.box {
-	box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-		rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-	border-radius: 20px;
-	height: 400px;
-	width: 250px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	cursor: pointer;
-}
-
-.box:hover {
-	box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-		rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-	border-radius: 20px;
-	transform: scale(1.05);
-}
-
-.box img {
-	width: 100%;
-	height: 50%;
-	object-fit: cover;
-	border-radius: 10px 10px 0 0;
-}
-
-.border {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	height: 200px;
-	width: 200px;
-}
-
-.border h4 {
-	margin: 0;
-	text-align: center;
-}
-
-.info_box {
-	height: 70px;
-	display: flex;
-	flex-direction: column;
-	border-bottom: 1px solid grey;
-}
-
-.info {
-	height: 30px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.info p {
-	font-size: 13.5px;
-}
-
-.price {
-	padding-top: 10px;
-	height: 30px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.price button {
-	background-color: orange;
-	border-color: transparent;
-	cursor: pointer;
-	border-radius: 20px;
-	font-size: 13px;
-	height: 30px;
-	width: 90px;
-}
-
-.price button:hover {
-	background-color: orange;
-	color: white;
-	transform: scale(1.05);
-}
-</style>
 </head>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
 
 	<%
-	Set<Product> listOfProducts = (Set<Product>) request.getAttribute("allProducts");
+	Set<Product> list = (Set<Product>) request.getAttribute("allProducts");
+	
+	List<Product> listOfProducts = new ArrayList<>(list);
+
+    Collections.sort(listOfProducts, Comparator.comparingInt(Product::getId));
 	%>
 
 	<%
-	Long loggedUser = (Long) request.getSession().getAttribute("loggedNumber");
+	Long loggedNumber = (Long) request.getSession().getAttribute("loggedNumber");
 	%>
 
 	<h1 class="he">Menu</h1>
 
+	<div class="search_box">
+		<input type="text" class="search" placeholder="Search"
+			id="search_food">
+		<div>
+			<a href="#"> <img class="search_image"
+				src="assets/Images/Search image.png" alt="">
+			</a>
+		</div>
+	</div>
+
+
+
 	<div class="top">
 		<div class="menu">
 			<a href="menu" class="all">All</a>
+		</div>
+	</div>
+
+	<div class="res">
+		<div class="no_result" style="display: none">
+			<img class="result_img" src="assets/Images/no-result.png"
+				alt="No result image">
 		</div>
 	</div>
 
@@ -198,17 +89,19 @@ h1.he {
 						<%=product.getPrice()%>
 					</p>
 					<%
-					if (loggedUser == null) {
+					if (loggedNumber == null) {
 					%>
-					<a href="login"><button type="button"
-							class="addCart">Buy Now</button></a>
+					<a href="login"><button type="button" class="btn">Add
+							to cart</button></a>
 
 					<%
-					}else{
+					} else {
 					%>
-					<a href="order?id=<%=product.getId()%>"><button type="button"
-							class="addCart">Buy Now</button></a>
-					<%} %>
+					<button data-id="<%=product.getId()%>" type="button"
+						class="addCart">Add to cart</button>
+					<%
+					}
+					%>
 				</div>
 			</div>
 		</div>
@@ -217,5 +110,54 @@ h1.he {
 		%>
 	</section>
 
+	<!-- scooty gif -->
+	<div class="gif">
+		<img src="assets/Images/scooty.gif" alt="scooty img" height="150px"
+			width="150px">
+	</div>
+	<jsp:include page="footer.jsp"></jsp:include>
+
+	<script>
+		const addToCarts = document.querySelectorAll("button.addCart");
+		addToCarts.forEach(function addCarts(add_foods) {
+			add_foods.addEventListener("click", function clickToAdd() {
+				
+				const cartProducts = JSON.parse(localStorage.getItem("cart_product")) || [];
+				const count = document.querySelector("span.count");
+				
+
+				const product_id = this.dataset.id;
+				const userId = ${loggedNumber};
+		
+				console.log(cartProducts);
+				
+				const exist = cartProducts.length && JSON.parse(localStorage.getItem("cart_product")).some(
+			            (data) => data.product_id === parseInt(product_id) && data.user_id === userId);
+				
+				if(!exist){
+					cartProducts.push({
+				    	user_id: userId,
+				        product_id: parseInt(product_id),
+				        quantity_ordered: 1,
+				        delivery_time: "",
+					});
+				    localStorage.setItem("cart_product", JSON.stringify(cartProducts));
+				    if(cartProducts.length == 1){
+				    	window.location.reload();
+				    }
+					if (cartProducts) {
+				   		const find_user_products = cartProducts.filter((e) => e.user_id === <%=loggedNumber%>);
+						if (find_user_products) {
+							count.textContent = find_user_products.length;
+						}
+					}
+				}else {
+			          alert("This product is already added to your cart");
+			          window.location.href="cart";
+		        }
+				 
+			});
+		});
+	</script>
 </body>
 </html>

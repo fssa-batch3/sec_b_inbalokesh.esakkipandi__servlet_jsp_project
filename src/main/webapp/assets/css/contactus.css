@@ -1,0 +1,103 @@
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.box{
+  display:flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width:90%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  margin: auto;
+  margin-bottom: 50px;
+  padding:20px;
+}
+
+input{
+  border: 1px solid #ccc; 
+}
+
+input[type=text], [type=tel], [type=email], textarea{
+  height: 100%;
+  width: 100%;
+  padding: 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  box-sizing: border-box; 
+  margin-top: 6px;
+  margin-bottom: 16px; 
+  resize: vertical;
+}
+
+#message{
+  height:200px;
+  margin-bottom: 16px;
+  resize: none;
+}
+ 
+#message_submit{
+  background-color: grey;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+  
+#message_submit:hover{
+  background-color:  #5cb748;
+}
+
+h1.con{
+  background-color: #5cb748;
+  color:white;
+  text-align: center;
+  margin:50px 0;
+}
+  
+.message_note h3{
+  font-size: 30px;
+}
+
+.message_gif{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:120px 0 160px 0;
+}
+
+.message_gif img{
+  height:150px;
+}
+
+@media (max-width:1245px) {
+  .box{
+    flex-direction: column-reverse;
+    width:70%;
+  }
+  .box img{
+    width: 100%;
+  }
+}
+
+@media (max-width:500px) {
+  input[type=text], [type=tel], [type=email], label, textarea{
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+  }
+  input[type=text], [type=tel], [type=email], textarea {
+    padding: 9px;
+  }
+  input[type=submit]{
+    font-size: 12px;
+    padding: 6px 15px;
+  }
+} 

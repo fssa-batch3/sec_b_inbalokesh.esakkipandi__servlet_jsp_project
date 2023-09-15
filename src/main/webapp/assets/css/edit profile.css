@@ -1,0 +1,132 @@
+.pro{
+    height:100%;
+    width:30rem;
+    color:black;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.pro h1{
+    background-color:#5cb748;
+    border-radius: 10px 10px 0 0;
+    margin:0;
+    color:white;
+    text-align: center;
+}
+
+section{
+    margin-top: 70px;
+    height:600px;
+}
+
+.side{
+    height: 500px;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+h2{
+    position: relative;
+    left:450px;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.pbox{
+    display: flex;
+    justify-content: start;
+    margin-top:40px;
+    align-items: center;
+}
+
+.pbox img{
+    margin-top: 15px;
+}
+
+input[type=file]{
+    position: absolute;
+    left:35%;
+    top:61%;
+    opacity:0;
+    width:150px;
+    cursor: pointer;
+}
+
+button{
+    height:30px;
+    width:10rem;
+    margin-bottom: 30px;
+    position:relative;
+    top:30px;
+    left:50px;
+    color:white;
+    border-color:transparent;
+    border-radius: 5px;
+    background-color: #FF7223;
+}
+
+.imgb{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    border-color: transparent;
+    height:25px;
+}
+
+textarea{
+    height:85px;
+    border-color: transparent;
+    resize: none;
+}
+
+.sep{
+    display: flex;
+    flex-direction: column;
+    margin-top:20px;
+    width:100%;
+}
+
+/* #myAddress{
+    margin-top: 20px;
+} */
+
+@media (max-width:500px){
+    section{
+        height:110vh;
+    }
+    .side{
+        height:730px;
+    }
+    .pbox{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0;
+    }
+    .imgb{
+        width:40%;
+    }
+
+    .pbox img{
+        height:100%;
+        width:100%;
+        border:3px solid rgb(93, 93, 93);
+        border-radius: 50%; 
+    }
+    .pbox button{
+        position:relative;
+        top:30px;
+        left:10px;
+        height:7vw;
+        width:35vw;
+        font-size: 3vw;
+        margin-bottom:20px;
+    }
+}

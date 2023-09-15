@@ -1,0 +1,183 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.log img{
+    height:30%;
+    width:50%;
+    position: relative;
+    left:90px;
+}
+
+.new img{
+    width:200px;
+    position: relative;
+    left:29%;
+}
+
+.log{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top:150px;
+}
+
+.signupbox{
+    width: 450px;
+    height: 780px;
+    margin: auto;
+    border-radius: 3px;
+    background-color: rgb(246, 246, 246);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.loginbox{
+    width: 340px;
+    height: 470px;
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    background-color: rgb(246, 246, 246);
+}
+
+h1{
+    text-align: center;
+}
+  
+h4{
+    text-align: center;
+}
+  
+form{
+    width: 300px;
+    margin-left: 20px;
+}
+  
+form label{
+    display: flex;
+    margin-top: 20px;
+    font-size: 17px;
+}
+  
+form input{
+    width: 132%;
+    padding: 7px;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+form input.inp{
+    width:95%;
+}
+
+button{
+    width: 300px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c15f;
+    color: white;
+    font-size: 18px;
+}
+
+.btn-secondary{
+    width:412px;
+}
+
+form input.but{
+    width:100%;
+}
+
+button:hover{
+    transform: scale(1.02);
+}
+
+textarea{
+    height:100px;
+    width:405px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p{
+    text-align: center;
+    padding-top: 5px;
+    font-size: 15px;
+}
+  
+.para-2{
+    text-align: center;
+    color: black;
+    font-size: 15px;
+}
+  
+h5.password_note{
+    color: #393E46;
+    width:26rem;
+}
+
+/* For address form */
+
+.addressBox{
+    width: 450px;
+    height: 980px;
+    margin: auto;
+    border-radius: 3px;
+    background-color: rgb(246, 246, 246);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.addressBoxEdit{
+    width: 450px;
+    height: 880px;
+    margin: auto;
+    border-radius: 3px;
+    background-color: rgb(246, 246, 246);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.default{
+    display: flex;
+    align-items: baseline;
+}
+#checkBox{
+    height: 15px;
+    width: 25px;
+}
+.address-note{
+    text-align: left;
+    width:26rem
+}
+
+
+@media (max-width:490px){
+    .new img{
+        position:relative;
+        left:25%;
+    }
+    .signupbox{
+        width:100%;
+    }
+    .addressBox{
+        height:1000px;
+        width:100%;
+    }
+    form input{
+        width:80vw;
+    }
+    textarea{
+        width:82vw;
+    }
+    .btn-secondary{
+        width:83.5vw;
+    }
+    h5.password_note{
+        width:86vw;
+    }
+    .address-note{
+        width:88vw
+    }
+} 
+
+  

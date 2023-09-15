@@ -30,10 +30,10 @@ public class MenuServlet extends HttpServlet {
 
 		ProductService productService = new ProductService();
 		try {
+		
 			Set<Product> listofproducts = productService.getAllProducts();
-
 			request.setAttribute("allProducts", listofproducts);
-
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/menu.jsp");
 			rd.forward(request, response);
 

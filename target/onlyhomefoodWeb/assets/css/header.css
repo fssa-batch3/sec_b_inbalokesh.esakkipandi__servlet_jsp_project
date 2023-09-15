@@ -1,0 +1,150 @@
+@import "normalize.css";
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    height: 80px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    background-color: white;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+.shead{
+    display:flex;
+}
+
+.head{
+    display:flex;
+}
+
+.toggle-button{
+    position: absolute;
+    top:28px;
+    right:20px;
+    display:none;
+    flex-direction: column;
+    justify-content: space-between;
+    width:30px;
+    height:21px;
+}
+
+.toggle-button .bar{
+    height:4px;
+    width:100%;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    width:420px;
+    align-items: center;
+}
+
+.navbar a{
+    text-decoration: none;
+    color:black;
+}
+
+.Profile button{
+    padding:5px 10px;
+    color:white;
+    height:35px;
+    width:80px;
+    border-radius: 40px;
+    cursor:pointer;
+    border-color: transparent;
+    background-color:#FF7223;    
+}
+
+.Profile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    margin-left: 40px;
+}
+
+span.count{
+    background-color:#FF7223 ;
+    color:white;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    bottom:19%;
+    right:25%;
+    border-radius: 30px;
+}
+
+@media (max-width:1020px){
+    .header{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .navigation__link{
+        padding: 22px 13px;
+        line-height: 1;
+    }
+    .navigation__link:hover{
+        background-color: rgb(227, 227, 227);
+    }
+    .shead h1{
+        font-size: 30px;
+    }
+    .toggle-button{
+        display: flex;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+    }
+    .navbar a{
+        width: 100%;
+    }
+    .head{
+        display: none;
+        height:50vh;
+        background-color: whitesmoke;
+    }
+    .head:nth-child(n+2){
+        flex-direction: column;
+    }
+    .head.active{
+        display: flex;
+    }
+    .Profile{
+        width:90px;
+        margin-left: 0;
+        padding: 10px;
+    }
+    span.count{
+        position: relative;
+        top:-42%;
+        left:-21%;
+    }
+}
+@media (max-width:565px) {
+    .shead h1{
+        font-size: 6vw;
+        margin-top: 25px;
+    }
+}
+
+
