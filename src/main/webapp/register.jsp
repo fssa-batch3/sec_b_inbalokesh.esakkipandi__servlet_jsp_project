@@ -87,7 +87,7 @@ h4.password_note{
 <body>
 
 	<div class="signupbox">
-		<img src="https://iili.io/J9Fiktn.md.png" alt="logo">
+		<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png" alt="logo">
 		<h1>Sign Up</h1>
 		<form action="create" method="post">
 

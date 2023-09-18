@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>header</title>
-<link href="assets/css/header.css" rel="stylesheet" type="text/css">
+<link href="<%= request.getContextPath()%>/assets/css/header.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -20,7 +20,7 @@
 	%>
 	<header class="header">
 		<div class="shead">
-			<a href="home"><img src="https://iili.io/J9Fiktn.md.png"
+			<a href="home"><img src="<%=request.getContextPath()%>/assets/Images/LOGO.png"
 				alt="Logo" height="80px" width="100px"></a>
 
 			<h1>ONLY HOME FOOD</h1>
@@ -30,13 +30,13 @@
 		</div>
 		<div class="head">
 			<nav class="navbar">
-				<a class="navigation__link" href="home">Home</a> <a
-					class="navigation__link" href="menu">Menu</a> <a
-					class="navigation__link" href="about_us.jsp">About Us</a> <a
-					class="navigation__link" href="contact_us.jsp">Contact Us</a>
+				<a class="navigation__link" href="<%= request.getContextPath()%>/home">Home</a> <a
+					class="navigation__link" href="<%=request.getContextPath()%>/menu">Menu</a> <a
+					class="navigation__link" href="<%= request.getContextPath()%>/aboutUs">About Us</a> <a
+					class="navigation__link" href="<%= request.getContextPath()%>/contactUs">Contact Us</a>
 			</nav>
 			<div class="Profile">
-				<a href="login">
+				<a href="<%= request.getContextPath()%>/login">
 					<button>Login</button>
 				</a>
 			</div>
@@ -47,7 +47,7 @@
 	%>
 	<header class="header">
 		<div class="shead">
-			<a href="admin"><img src="https://iili.io/J9Fiktn.md.png"
+			<a href="admin"><img src="<%=request.getContextPath()%>/assets/Images/LOGO.png"
 				alt="Logo" height="80px" width="100px"></a>
 			<h1>ONLY HOME FOOD</h1>
 		</div>
@@ -59,7 +59,7 @@
 					href="<%=request.getContextPath()%>/products">Product List</a>
 			</nav>
 			<div class="Profile">
-				<a href="logout">
+				<a href="<%= request.getContextPath()%>/logout">
 					<button>Log Out</button>
 				</a>
 			</div>
@@ -71,7 +71,7 @@
 	%>
 	<header class="header">
 		<div class="shead">
-			<a href="home"><img src="https://iili.io/J9Fiktn.md.png"
+			<a href="<%= request.getContextPath()%>/home"><img src="<%=request.getContextPath()%>/assets/Images/LOGO.png"
 				alt="Logo" height="80px" width="100px"></a>
 			<h1>ONLY HOME FOOD</h1>
 			<a href="#" class="toggle-button"> <span class="bar"></span> <span
@@ -80,16 +80,16 @@
 		</div>
 		<div class="head">
 			<nav class="navbar">
-				<a class="navigation__link" href="home">Home</a> <a
-					class="navigation__link" href="menu">Menu</a> <a
-					class="navigation__link" href="about_us.jsp">About Us</a> <a
-					class="navigation__link" href="contact_us.jsp">Contact Us</a>
+				<a class="navigation__link" href="<%= request.getContextPath()%>/home">Home</a> <a
+					class="navigation__link" href="<%= request.getContextPath()%>/menu">Menu</a> <a
+					class="navigation__link" href="<%= request.getContextPath()%>/aboutUs">About Us</a> <a
+					class="navigation__link" href="<%= request.getContextPath()%>/contactUs">Contact Us</a>
 			</nav>
 			<div class="Profile">
 				<a href="<%=request.getContextPath()%>/cart"><img
 					src="<%=request.getContextPath()%>/assets/Images/cart-outline.svg"
 					alt="Cart icon" height="30px" width="30px"></a> <span
-					class="count">0</span> <a href="profile"><img
+					class="count">0</span> <a href="<%= request.getContextPath()%>/profile"><img
 					src="<%=request.getContextPath()%>/assets/Images/person-circle-outline.svg"
 					alt="Profile icon" height="30px" width="30px"></a>
 			</div>

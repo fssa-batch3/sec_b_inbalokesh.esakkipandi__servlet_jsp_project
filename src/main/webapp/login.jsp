@@ -89,7 +89,7 @@ textarea {
 	<div class="log">
 	
 		<div class="loginbox">
-			<img src="https://iili.io/J9Fiktn.md.png" alt="logo">
+			<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png" alt="logo">
 
 			<h1>Login</h1>
 			<form action="login" method="post">

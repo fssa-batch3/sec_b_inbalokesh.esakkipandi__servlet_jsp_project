@@ -1,3 +1,4 @@
+<%@page import="in.fssa.onlyhomefood.model.Address"%>
 <%@page import="java.util.Set"%>
 <%@page import="in.fssa.onlyhomefood.model.User"%>
 <%@page import="in.fssa.onlyhomefood.model.Product"%>
@@ -19,10 +20,16 @@
 	<%
 	User user = (User) request.getAttribute("user");
 	%>
+	
+	<%
+	Object defaultAddress = (Object) request.getAttribute("defaultAddress");
+	%>
 
 	<%
 	Long loggedNumber = (Long) request.getSession().getAttribute("loggedNumber");
 	%>
+	
+	
 
 	<jsp:include page="header.jsp"></jsp:include>
 
@@ -347,9 +354,9 @@
 
       let addressId = JSON.parse(localStorage.getItem("addressId")) || [];
 
-      let defaultAddress = userAddresses.find((e) => e.defaultStatus === true);
+      let defaultAddress = <%=defaultAddress%>;
     
-      let selectedAddress = userAddresses.find((selected) => selected.address_id === addressId);
+      let selectedAddress = <%=defaultAddress%>;
   
 
       if (selectedAddress === undefined || selectedAddress === null) {
@@ -373,7 +380,7 @@
 
         // Add address location //
         buttonElement.addEventListener("click", function addAddress() {
-          window.location.href = "../../Pages/Login and Order/List address.html";
+          window.location.href = "address/book";
         })
       }
       else {
@@ -423,27 +430,27 @@
         // Create the name paragraph
         const nameParagraph = document.createElement('p');
         nameParagraph.classList.add('dname');
-        nameParagraph.textContent = selectedAddress.name;
+        nameParagraph.textContent = defaultAddress.name;
 
         // Create the mobile number paragraph
         const mobileNumberParagraph = document.createElement('p');
         mobileNumberParagraph.classList.add('dmobNumber');
-        mobileNumberParagraph.textContent = selectedAddress.mobile_number;
+        mobileNumberParagraph.textContent = defaultAddress.phoneNumber;
 
         // Create the street paragraph
         const streetParagraph = document.createElement('p');
         streetParagraph.classList.add('dstreet');
-        streetParagraph.textContent = selectedAddress.house_number;
+        streetParagraph.textContent = defaultAddress.streetName;
 
         // Create the locality paragraph
         const localityParagraph = document.createElement('p');
         localityParagraph.classList.add('dlocality');
-        localityParagraph.textContent = selectedAddress.town_name;
+        localityParagraph.textContent = defaultAddress.townName;
 
         // Create the city paragraph
         const cityParagraph = document.createElement('p');
         cityParagraph.classList.add('dcity');
-        cityParagraph.textContent = selectedAddress.city + " - " + selectedAddress.pinCode;
+        cityParagraph.textContent = defaultAddress.city + " - " + defaultAddress.pinCode;
 
         // Append the paragraphs to the user-details element
         userDetails.appendChild(nameParagraph);
@@ -462,7 +469,7 @@
 
         // Change address location //
         changeAddressButton.addEventListener("click", function changeAddress() {
-          window.location.href = "../../Pages/Login and Order/List address.html?type=SelectAddress";
+          window.location.href = "address/book";
         })
       }
       // <div class="sum">

@@ -18,8 +18,10 @@ import com.google.gson.Gson;
 
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
+import in.fssa.onlyhomefood.model.Address;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.model.User;
+import in.fssa.onlyhomefood.service.AddressService;
 import in.fssa.onlyhomefood.service.ProductService;
 import in.fssa.onlyhomefood.service.UserService;
 
@@ -37,6 +39,7 @@ public class NewCartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProductService productService = new ProductService();
+		AddressService addressService = new AddressService();
 
 		try {
 
@@ -58,6 +61,12 @@ public class NewCartServlet extends HttpServlet {
 			UserService userService = new UserService();
 			
 			User user = userService.findUserByPhoneNumber(phone_number);
+			
+			Address address = addressService.findDefaultAddress(user.getId());
+			String addressJson = gson.toJson(address);
+			
+			request.setAttribute("defaultAddress", addressJson);
+			
 			request.setAttribute("user", user);
 			
 			RequestDispatcher req = request.getRequestDispatcher("/cart.jsp");

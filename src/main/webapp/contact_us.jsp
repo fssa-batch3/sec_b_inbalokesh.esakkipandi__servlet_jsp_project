@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Contact Us</title>
 <link href="assets/css/contactus.css" rel="stylesheet" type="text/css">
 
 </head>

@@ -101,6 +101,8 @@ textarea {
 						<a
 							href="<%=request.getContextPath()%>/user/edit?id=<%=user.getId()%>"><button
 								type="button" id="edit-btn">Edit profile</button></a> <a
+							href="<%=request.getContextPath()%>/address/book"><button
+								type="button" id="address-btn">Address Book</button></a> <a
 							href="<%=request.getContextPath()%>/user/delete?id=<%=user.getId()%>"><button
 								type="button" id="delete-btn">Delete</button></a> <a
 							href="<%=request.getContextPath()%>/logout"><button
@@ -125,8 +127,8 @@ textarea {
 			</div>
 		</div>
 	</section>
-	
+
 	<jsp:include page="footer.jsp"></jsp:include>
-	
+
 </body>
 </html>

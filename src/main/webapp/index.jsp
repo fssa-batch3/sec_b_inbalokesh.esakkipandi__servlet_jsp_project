@@ -20,7 +20,7 @@
 					<button class="btn">ORDER NOW</button>
 				</a>
 			</div>
-			<img src="https://iili.io/J9Hpv72.md.webp" alt="food image">
+			<img src="<%=request.getContextPath()%>/assets/Images/foodd.webp" alt="food image">
 		</div>
 	</section>
 
