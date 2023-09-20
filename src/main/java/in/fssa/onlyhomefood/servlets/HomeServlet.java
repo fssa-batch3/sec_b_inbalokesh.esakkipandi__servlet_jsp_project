@@ -16,12 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		RequestDispatcher req = request.getRequestDispatcher("/index.jsp");
 		req.forward(request, response);
 	}

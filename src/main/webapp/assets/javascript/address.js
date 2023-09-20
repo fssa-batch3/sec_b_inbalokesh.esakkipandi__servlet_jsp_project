@@ -50,6 +50,10 @@ const createAddress =
 </div>
 `
 
+let addressId = 0;
+addressId = userAddress == null ? 0 : userAddress.id;
+
+
 const editAddress =
 	`
 <div class="new">
@@ -58,7 +62,7 @@ const editAddress =
         <img src="${root}/onlyhomefoodWeb/assets/Images/LOGO.png" alt="logo">
     </a>
     <h1>Edit Address</h1>
-    <form role="form" action="update?id=${userAddress?.id}" id="address-save" method="post" autocomplete="off">
+    <form role="form" id="address-save" action="update?id=${addressId}" method="post" autocomplete="off">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Jhon" pattern="[a-zA-Z ]+" title="Write your name properly"
             minlength="3" required autocomplete="off">
@@ -88,6 +92,7 @@ const editAddress =
 </div>
 `
 
+
 const url = window.location.search;
 const urlParams = new URLSearchParams(url);
 const addressFrom = urlParams.get("form");
@@ -95,7 +100,7 @@ const addressUniqueId = urlParams.get("id")
 
 console.log(addressUniqueId);
 
-if (addressFrom === "CreateAddress") {
+if (addressFrom === "CreateAddress" && userAddress == null) {
 	document.body.insertAdjacentHTML("afterbegin", createAddress);
 
 
@@ -112,7 +117,7 @@ if (addressFrom === "CreateAddress") {
 
 }
 
-if (addressFrom === "EditAddress" && addressUniqueId != null) {
+if (addressFrom === "EditAddress" && userAddress != null) {
 	document.body.insertAdjacentHTML("afterbegin", editAddress);
 	
 	

@@ -20,7 +20,7 @@ import in.fssa.onlyhomefood.service.UserService;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet {
 
 		RequestDispatcher req = request.getRequestDispatcher("/login.jsp");
 		req.forward(request, response);
-
 	}
 
 	/**
@@ -61,5 +60,4 @@ public class LoginServlet extends HttpServlet {
 			throw new ServletException(e.getMessage());
 		}
 	}
-
 }

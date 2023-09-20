@@ -6,8 +6,42 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>header</title>
-<link href="<%= request.getContextPath()%>/assets/css/header.css" rel="stylesheet" type="text/css">
+<style>
 
+.navbar-admin {
+    display: flex;
+    justify-content: space-evenly;
+    width: 420px;
+    align-items: center;
+}
+
+.navbar-admin a{
+    text-decoration: none;
+    color:black;
+}
+
+.logout-admin{
+
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+}
+
+.logout-admin button {
+    padding: 5px 10px;
+    color: white;
+    height: 35px;
+    width: 100px;
+    border-radius: 40px;
+    cursor: pointer;
+    border-color: transparent;
+    background-color: #FF7223;
+}
+
+
+</style>
+<link href="<%= request.getContextPath()%>/assets/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -52,13 +86,15 @@
 			<h1>ONLY HOME FOOD</h1>
 		</div>
 		<div class="head">
-			<nav class="navbar">
+			<nav class="navbar-admin">
+				<a class="navigation__link"
+					href="<%=request.getContextPath()%>/admin">Home</a>
 				<a class="navigation__link"
 					href="<%=request.getContextPath()%>/product/new">Create Product</a>
 				<a class="navigation__link"
 					href="<%=request.getContextPath()%>/products">Product List</a>
 			</nav>
-			<div class="Profile">
+			<div class="logout-admin">
 				<a href="<%= request.getContextPath()%>/logout">
 					<button>Log Out</button>
 				</a>

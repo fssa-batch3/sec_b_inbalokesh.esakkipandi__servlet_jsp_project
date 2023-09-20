@@ -22,18 +22,20 @@ public class UpdateAddressServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
 		AddressService addressService = new AddressService();
-		
+
 		UserService userService = new UserService();
 
 		Address editAddress = new Address();
-		
+
 		editAddress.setName(request.getParameter("name"));
 		editAddress.setPhoneNumber(Long.parseLong(request.getParameter("mobile_number")));
 		editAddress.setLocation(request.getParameter("addressSearch"));
@@ -42,25 +44,24 @@ public class UpdateAddressServlet extends HttpServlet {
 		editAddress.setCity(request.getParameter("city"));
 		editAddress.setState(request.getParameter("state"));
 		editAddress.setPinCode(Integer.parseInt(request.getParameter("pincode")));
-		
+
 		try {
-			
+
 			long phone_number = (Long) request.getSession().getAttribute("loggedNumber");
 
 			User user = userService.findUserByPhoneNumber(phone_number);
-			
+
 			editAddress.setUserId(user.getId());
-			
+
 			addressService.updadeAddress(id, editAddress);
-			
+
 			response.sendRedirect(request.getContextPath() + "/address/book");
-			
+
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
-		
-		
+
 	}
 
 }

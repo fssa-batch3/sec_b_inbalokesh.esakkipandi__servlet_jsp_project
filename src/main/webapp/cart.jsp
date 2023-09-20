@@ -20,7 +20,7 @@
 	<%
 	User user = (User) request.getAttribute("user");
 	%>
-	
+
 	<%
 	Object defaultAddress = (Object) request.getAttribute("defaultAddress");
 	%>
@@ -28,8 +28,8 @@
 	<%
 	Long loggedNumber = (Long) request.getSession().getAttribute("loggedNumber");
 	%>
-	
-	
+
+
 
 	<jsp:include page="header.jsp"></jsp:include>
 
@@ -207,28 +207,37 @@
         if (find.delivery_time === "") {
           option.innerText = "-- Select the delivery time --";
         } else {
-          option.innerText = find.delivery_time;
+        	if(find.delivery_time === "Breakfast"){	
+        		option.innerText = "Breakfast (7:30 AM to 9:00 AM)";
+        	}
+        	else if(find.delivery_time === "Lunch"){	
+        		option.innerText = "Lunch (12:30 AM to 2:00 PM)";
+        	}
+        	else if(find.delivery_time === "Dinner"){
+        		option.innerText = "Dinner (7:00 PM to 8:30 PM)";
+        	}
         }
+        
         select.append(option);
 
         option = document.createElement("option");
         option.setAttribute("class", "selected_option");
         option.setAttribute("id", "option_1");
-        option.setAttribute("value", "Breakfast (7:30 AM to 9:00 AM)");
+        option.setAttribute("value", "Breakfast");
         option.innerText = "Breakfast (7:30 AM to 9:00 AM)";
         select.append(option);
 
         option = document.createElement("option");
         option.setAttribute("class", "selected_option");
         option.setAttribute("id", "option_2");
-        option.setAttribute("value", "Lunch (12:30 AM to 2:00 PM)");
+        option.setAttribute("value", "Lunch");
         option.innerText = "Lunch (12:30 AM to 2:00 PM)";
         select.append(option);
 
         option = document.createElement("option");
         option.setAttribute("class", "selected_option");
         option.setAttribute("id", "option_3");
-        option.setAttribute("value", "Dinner (7:00 PM to 8:30 PM)");
+        option.setAttribute("value", "Dinner");
         option.innerText = "Dinner (7:00 PM to 8:30 PM)";
         select.append(option);
 
@@ -278,8 +287,8 @@
       document.querySelectorAll("select").forEach((selectOption) => {
         const options = [];
         selectOption.querySelectorAll("option").forEach((eachOption) => {
-          if (options.includes(eachOption.value)) eachOption.remove();
-          else options.push(eachOption.value);
+          if (options.includes(eachOption.innerText)) eachOption.remove();
+          else options.push(eachOption.innerText);
         });
       });
 
@@ -349,166 +358,201 @@
 
       // To get the default address //
 
-      let address = JSON.parse(localStorage.getItem("address")) || [];
-      let userAddresses = address.filter((e) => e.userId === userId);
+      function addressCard(defaultAddress){
+          if (defaultAddress === undefined) {
+            // Create the <div> element
+            const divElement = document.createElement('div');
+            divElement.setAttribute('class', 'empty-address');
 
-      let addressId = JSON.parse(localStorage.getItem("addressId")) || [];
+            // Create the <h3> element
+            const h3Element = document.createElement('h3');
+            h3Element.textContent = 'No address found!';
 
-      let defaultAddress = <%=defaultAddress%>;
-    
-      let selectedAddress = <%=defaultAddress%>;
-  
+            // Create the <button> element
+            const buttonElement = document.createElement('button');
+            buttonElement.setAttribute('class', 'btn-add');
+            buttonElement.textContent = 'Add address';
 
-      if (selectedAddress === undefined || selectedAddress === null) {
-        // Create the <div> element
-        const divElement = document.createElement('div');
-        divElement.setAttribute('class', 'empty-address');
+            // Append the <h3> and <button> elements to the <div> element
+            divElement.appendChild(h3Element);
+            divElement.appendChild(buttonElement);
+            div_sumlist.append(divElement);
 
-        // Create the <h3> element
-        const h3Element = document.createElement('h3');
-        h3Element.textContent = 'No address found!';
+            // Add address location //
+            buttonElement.addEventListener("click", function addAddress() {
+              window.location.href = "address/book";
+            })
+          }
+          else {
+            // Address //
 
-        // Create the <button> element
-        const buttonElement = document.createElement('button');
-        buttonElement.setAttribute('class', 'btn-add');
-        buttonElement.textContent = 'Add address';
+            // Create the selected-address container element
+            const selectedAddressContainer = document.createElement('div');
+            selectedAddressContainer.classList.add('selected-address');
+            div_sumlist.append(selectedAddressContainer);
 
-        // Append the <h3> and <button> elements to the <div> element
-        divElement.appendChild(h3Element);
-        divElement.appendChild(buttonElement);
-        div_sumlist.append(divElement);
+            // Create the top-tittle element
+            const topTitle = document.createElement('div');
+            topTitle.classList.add('top-tittle');
 
-        // Add address location //
-        buttonElement.addEventListener("click", function addAddress() {
-          window.location.href = "address/book";
-        })
-      }
-      else {
-        // Address //
+            // Create the shippment-address heading
+            const shipmentAddressHeading = document.createElement('h3');
+            shipmentAddressHeading.classList.add('shippment-address');
+            shipmentAddressHeading.textContent = 'Shipping Address';
 
-        // Create the selected-address container element
-        const selectedAddressContainer = document.createElement('div');
-        selectedAddressContainer.classList.add('selected-address');
-        div_sumlist.append(selectedAddressContainer);
+            // Create the change address button
+            const changeAddressButton = document.createElement('button');
+            changeAddressButton.classList.add('btn-change');
+            changeAddressButton.textContent = 'Change Address';
 
-        // Create the top-tittle element
-        const topTitle = document.createElement('div');
-        topTitle.classList.add('top-tittle');
+            // Append the heading and button to the top-tittle element
+            topTitle.appendChild(shipmentAddressHeading);
+            topTitle.appendChild(changeAddressButton);
 
-        // Create the shippment-address heading
-        const shipmentAddressHeading = document.createElement('h3');
-        shipmentAddressHeading.classList.add('shippment-address');
-        shipmentAddressHeading.textContent = 'Shipping Address';
+            // Create the detailsBox element
+            const detailsBox = document.createElement('div');
+            detailsBox.classList.add('detailsBox');
 
-        // Create the change address button
-        const changeAddressButton = document.createElement('button');
-        changeAddressButton.classList.add('btn-change');
-        changeAddressButton.textContent = 'Change Address';
+            // Create the location-image element
+            const locationImage = document.createElement('div');
+            locationImage.classList.add('location-image');
 
-        // Append the heading and button to the top-tittle element
-        topTitle.appendChild(shipmentAddressHeading);
-        topTitle.appendChild(changeAddressButton);
+            // Create the image element
+            const image = document.createElement('img');
+            image.src = 'assets/Images/locator.png';
+            image.alt = 'locator image';
+            locationImage.appendChild(image);
 
-        // Create the detailsBox element
-        const detailsBox = document.createElement('div');
-        detailsBox.classList.add('detailsBox');
+            // Create the user-details element
+            const userDetails = document.createElement('div');
+            userDetails.classList.add('user-details');
 
-        // Create the location-image element
-        const locationImage = document.createElement('div');
-        locationImage.classList.add('location-image');
+            // Create the name paragraph
+            const nameParagraph = document.createElement('p');
+            nameParagraph.classList.add('dname');
+            nameParagraph.textContent = defaultAddress.name;
 
-        // Create the image element
-        const image = document.createElement('img');
-        image.src = 'assets/Images/locator.png';
-        image.alt = 'locator image';
-        locationImage.appendChild(image);
+            // Create the mobile number paragraph
+            const mobileNumberParagraph = document.createElement('p');
+            mobileNumberParagraph.classList.add('dmobNumber');
+            mobileNumberParagraph.textContent = defaultAddress.phoneNumber;
 
-        // Create the user-details element
-        const userDetails = document.createElement('div');
-        userDetails.classList.add('user-details');
+            // Create the street paragraph
+            const streetParagraph = document.createElement('p');
+            streetParagraph.classList.add('dstreet');
+            streetParagraph.textContent = defaultAddress.streetName;
 
-        // Create the name paragraph
-        const nameParagraph = document.createElement('p');
-        nameParagraph.classList.add('dname');
-        nameParagraph.textContent = defaultAddress.name;
+            // Create the locality paragraph
+            const localityParagraph = document.createElement('p');
+            localityParagraph.classList.add('dlocality');
+            localityParagraph.textContent = defaultAddress.townName;
 
-        // Create the mobile number paragraph
-        const mobileNumberParagraph = document.createElement('p');
-        mobileNumberParagraph.classList.add('dmobNumber');
-        mobileNumberParagraph.textContent = defaultAddress.phoneNumber;
+            // Create the city paragraph
+            const cityParagraph = document.createElement('p');
+            cityParagraph.classList.add('dcity');
+            cityParagraph.textContent = defaultAddress.city + " - " + defaultAddress.pinCode;
 
-        // Create the street paragraph
-        const streetParagraph = document.createElement('p');
-        streetParagraph.classList.add('dstreet');
-        streetParagraph.textContent = defaultAddress.streetName;
+            // Append the paragraphs to the user-details element
+            userDetails.appendChild(nameParagraph);
+            userDetails.appendChild(mobileNumberParagraph);
+            userDetails.appendChild(streetParagraph);
+            userDetails.appendChild(localityParagraph);
+            userDetails.appendChild(cityParagraph);
 
-        // Create the locality paragraph
-        const localityParagraph = document.createElement('p');
-        localityParagraph.classList.add('dlocality');
-        localityParagraph.textContent = defaultAddress.townName;
+            // Append the location-image and user-details elements to the detailsBox element
+            detailsBox.appendChild(locationImage);
+            detailsBox.appendChild(userDetails);
 
-        // Create the city paragraph
-        const cityParagraph = document.createElement('p');
-        cityParagraph.classList.add('dcity');
-        cityParagraph.textContent = defaultAddress.city + " - " + defaultAddress.pinCode;
+            // Append the top-tittle and detailsBox elements to the selected-address container element
+            selectedAddressContainer.appendChild(topTitle);
+            selectedAddressContainer.appendChild(detailsBox);
 
-        // Append the paragraphs to the user-details element
-        userDetails.appendChild(nameParagraph);
-        userDetails.appendChild(mobileNumberParagraph);
-        userDetails.appendChild(streetParagraph);
-        userDetails.appendChild(localityParagraph);
-        userDetails.appendChild(cityParagraph);
+            // Change address location //
+            changeAddressButton.addEventListener("click", function changeAddress() {
+              window.location.href = "address/book?type=SelectAddress";
+            })
+            
+            
+          }
+          
 
-        // Append the location-image and user-details elements to the detailsBox element
-        detailsBox.appendChild(locationImage);
-        detailsBox.appendChild(userDetails);
+          // <div class="sum">
+          const div_sum5 = document.createElement("div");
+          div_sum5.setAttribute("id", "sum_total");
+          div_sum5.setAttribute("class", "sum");
+          div_sumlist.append(div_sum5);
 
-        // Append the top-tittle and detailsBox elements to the selected-address container element
-        selectedAddressContainer.appendChild(topTitle);
-        selectedAddressContainer.appendChild(detailsBox);
+          const div_total = document.createElement("div");
+          div_total.setAttribute("class", "total");
+          div_sum5.append(div_total);
 
-        // Change address location //
-        changeAddressButton.addEventListener("click", function changeAddress() {
-          window.location.href = "address/book";
-        })
-      }
-      // <div class="sum">
-      const div_sum5 = document.createElement("div");
-      div_sum5.setAttribute("id", "sum_total");
-      div_sum5.setAttribute("class", "sum");
-      div_sumlist.append(div_sum5);
+          // <h4 class="lsum">
+          h4_lsum = document.createElement("h4");
+          h4_lsum.setAttribute("class", "lsum");
+          h4_lsum.innerText = "Total";
+          div_total.append(h4_lsum);
 
-      const div_total = document.createElement("div");
-      div_total.setAttribute("class", "total");
-      div_sum5.append(div_total);
+          // Cart total function //
 
-      // <h4 class="lsum">
-      h4_lsum = document.createElement("h4");
-      h4_lsum.setAttribute("class", "lsum");
-      h4_lsum.innerText = "Total";
-      div_total.append(h4_lsum);
+          const totalPrice = cart_list;
+          let price = 0;
+          for (let i = 0; i < totalPrice.length; i++) {
+            const find = userProducts.find((e) => e.product_id === cart_list[i].id);
+            price += parseInt(totalPrice[i].price * find.quantity_ordered);
+          }
 
-      // Cart total function //
+          // <p class="rsum">
+          p_rsum = document.createElement("p");
+          p_rsum.setAttribute("id", "total_cost");
+          p_rsum.setAttribute("class", "rsum");
+          p_rsum.innerText = "Rs. " + price;
+          div_total.append(p_rsum);
 
-      const totalPrice = cart_list;
-      let price = 0;
-      for (let i = 0; i < totalPrice.length; i++) {
-        const find = userProducts.find((e) => e.product_id === cart_list[i].id);
-        price += parseInt(totalPrice[i].price * find.quantity_ordered);
-      }
+          // <button class="place_order">
+          const button_place_order = document.createElement("button");
+          button_place_order.setAttribute("class", "place_order");
+          button_place_order.innerText = "Place Order";
+          div_sumlist.append(button_place_order);
+          
+          }
 
-      // <p class="rsum">
-      p_rsum = document.createElement("p");
-      p_rsum.setAttribute("id", "total_cost");
-      p_rsum.setAttribute("class", "rsum");
-      p_rsum.innerText = `Rs. ${price}`;
-      div_total.append(p_rsum);
+		let addressId = JSON.parse(localStorage.getItem("addressId")) || [];
+		
+		let defaultAddress = [];  // Initialize defaultAddress as an empty array
+		const selectedAddress = []; 
+		let root = window.location.origin + "/onlyhomefoodWeb";
+		let globalDefaultAddress;  // Define a global variable to store defaultAddress
+		
+		const addresId = JSON.parse(localStorage.getItem("addressId"));
+		
+		async function getAddress() {
+		    const response = await fetch(root + "/address/get?addressId=" + addresId);
+		    try {
+		        if (response.ok) {
+		            const data = await response.json();
+		            if (data.status === 200) {
+		                selectedAddress.push(data.data);
+		            }
+		        }
+		    } catch (error) {
+		        console.error(error);
+		        alert(error);
+		    }
+		}
+		
+		if (addresId) {
+			 getAddress().then(() => {
+			        defaultAddress = selectedAddress[0];
+			        console.log(defaultAddress);// Assign the array directly
+			        addressCard(defaultAddress);
+			    });
+		   
+		} else {
+		    defaultAddress = <%=defaultAddress%>; // Assign defaultAddress based on your logic
+		    addressCard(defaultAddress);
+		}
 
-      // <button class="place_order">
-      const button_place_order = document.createElement("button");
-      button_place_order.setAttribute("class", "place_order");
-      button_place_order.innerText = "Place Order";
-      div_sumlist.append(button_place_order);
+
 
       document.querySelector("div.summary").append(div_sumlist);
 

@@ -31,7 +31,8 @@
 	<div class="done-box">
 		<div class="selected-container">
 			<div class="selected-gif">
-				<img src="<%=request.getContextPath()%>/assets/Images/Location.gif" alt="location gif">
+				<img src="<%=request.getContextPath()%>/assets/Images/Location.gif"
+					alt="location gif">
 			</div>
 			<h2>Address has been selected sucessfully!</h2>
 			<div class="done-button">
@@ -153,7 +154,7 @@
         if (addressStatus === "SelectAddress") {
 
             document.querySelector(".btn-done").addEventListener("click", function goCart() {
-                window.location.href = '../../Pages/Cart/cart.html';
+                window.location.href = '/onlyhomefoodWeb/cart';
             })
 
             let selectedBox = null;
@@ -162,7 +163,7 @@
 
             let defaultSelectedBox = document.querySelector(".selectedBox");
             let defaultSelectedTick = defaultSelectedBox.querySelector(".green_tick");
-            defaultSelectedTick.setAttribute("src", "../../assets/Images/green_tick-removebg-preview.png");
+            defaultSelectedTick.setAttribute("src", "/onlyhomefoodWeb/assets/Images/green_tick-removebg-preview.png");
             defaultSelectedTick.setAttribute("alt", "tickImage");
             selectedBox = defaultSelectedBox;
 
@@ -172,7 +173,7 @@
                     if (selectedBox === this) {
                         this.classList.remove("selectedBox");
                         let select = this.querySelector(".green_tick");
-                        select.removeAttribute("src", "../../assets/Images/green_tick-removebg-preview.png");
+                        select.removeAttribute("src", "/onlyhomefoodWeb/assets/Images/green_tick-removebg-preview.png");
                         select.removeAttribute("alt", "tickImage");
                         selectedBox = null;
                     }
@@ -180,7 +181,7 @@
                         if (selectedBox !== null) {
                             selectedBox.classList.remove("selectedBox");
                             let select = selectedBox.querySelector(".green_tick");
-                            select.removeAttribute("src", "../../assets/Images/green_tick-removebg-preview.png");
+                            select.removeAttribute("src", "assets/Images/green_tick-removebg-preview.png");
                             select.removeAttribute("alt", "tickImage");
                         }
 
@@ -188,11 +189,10 @@
                         let address_id = parentBox.dataset.address
                         parentBox.classList.add("selectedBox");
                         let select = parentBox.querySelector(".green_tick");
-                        select.setAttribute("src", "../../assets/Images/green_tick-removebg-preview.png");
+                        select.setAttribute("src", "/onlyhomefoodWeb/assets/Images/green_tick-removebg-preview.png");
                         select.setAttribute("alt", "tickImage");
                         localStorage.setItem("addressId", JSON.stringify(address_id));
                         selectedBox = parentBox;
-
 
                         // For the popup
                         function popUp() {
@@ -214,13 +214,38 @@
 
                 let parentDiv = this.closest(".addressBox");
                 let address_id = parentDiv.dataset.address;
-                let defaultAddress = userAddress.find((e) => e.defaultStatus === true);
-                defaultAddress.defaultStatus = false;
-                let findAddress = userAddress.find((findId) => findId.address_id === address_id);
-                findAddress.defaultStatus = true;
-                localStorage.setItem("address", JSON.stringify(address));
-                localStorage.setItem("addressId", JSON.stringify(address_id))
-                window.location.reload();
+           		
+                console.log(address_id);
+                const url = '/onlyhomefoodWeb/address/status';  // Replace with your actual API endpoint
+                
+                const formdata = new FormData();
+                formdata.append("address_id",address_id);
+                
+                const requestOptions = {
+                  method: 'POST',
+                  headers: {
+                	  "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body: new URLSearchParams(formdata).toString(),
+                };
+
+                fetch(url, requestOptions)
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    
+                    location.reload();
+                  })
+                  .then(data => {
+                    console.log('Data:', data);
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                  });
+
+                
+                
             });
         });
 
@@ -231,18 +256,35 @@
                 let parentDiv = this.closest(".addressBox");
                 let address_id = parentDiv.dataset.address;
 
-                let defaultAddress = userAddress.find((e) => e.defaultStatus === true);
-                // console.log(address_id)
+				const url = '/onlyhomefoodWeb/address/delete';  // Replace with your actual API endpoint
+                
+                const formdata = new FormData();
+                formdata.append("address_id",address_id);
+                
+                const requestOptions = {
+                  method: 'POST',
+                  headers: {
+                	  "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body: new URLSearchParams(formdata).toString(),
+                };
 
-                if (defaultAddress.address_id === address_id) {
-                    alert("Default address cannot be deleted")
-                }
-                else {
-                    let findAddress = userAddress.find((findId) => findId.address_id === address_id);
-                    findAddress.Showstatus = 0
-                    localStorage.setItem("address", JSON.stringify(address));
-                    window.location.reload()
-                }
+                fetch(url, requestOptions)
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    
+                    location.reload();
+                  })
+                  .then(data => {
+                    console.log('Data:', data);
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                  });
+
+                
             })
         })
 

@@ -32,6 +32,7 @@ public class MenuServlet extends HttpServlet {
 		try {
 		
 			Set<Product> listofproducts = productService.getAllProducts();
+			
 			request.setAttribute("allProducts", listofproducts);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/menu.jsp");

@@ -16,6 +16,11 @@
 body{
 	margin:0;
 }
+
+::-webkit-scrollbar{
+    display: none;
+}
+
 .heading {
 	text-align: center;
 	font-size: 28px;
