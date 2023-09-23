@@ -115,7 +115,6 @@
                 setDefaultButton.type = "button";
                 setDefaultButton.innerText = "Set as default";
                 divButtons.appendChild(setDefaultButton);
-
             }
             else {
             	console.log("Inba");
@@ -128,7 +127,7 @@
             // Create the "Edit address" button
             const editAddressButton = document.createElement("button");
             editAddressButton.classList.add("btn-edit");
-            editAddressButton.innerText = "Edit_address";
+            editAddressButton.innerText = "Edit";
             divButtons.appendChild(editAddressButton);
 
             // Create the "Remove" button
@@ -181,7 +180,7 @@
                         if (selectedBox !== null) {
                             selectedBox.classList.remove("selectedBox");
                             let select = selectedBox.querySelector(".green_tick");
-                            select.removeAttribute("src", "assets/Images/green_tick-removebg-preview.png");
+                            select.removeAttribute("src", "/onlyhomefoodWeb/assets/Images/green_tick-removebg-preview.png");
                             select.removeAttribute("alt", "tickImage");
                         }
 

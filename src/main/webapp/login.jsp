@@ -6,10 +6,10 @@
 <meta charset="ISO-8859-1">
 <title>login</title>
 <style>
-img{
-    width:150px;
-    position : relative;
-    left:28%;
+img {
+	width: 150px;
+	position: relative;
+	left: 28%;
 }
 
 .log {
@@ -78,27 +78,30 @@ button:hover {
 }
 
 textarea {
-    height: 100px;
-    width: 405px;
-    resize: none;
-    font-family: Arial, Helvetica, sans-serif;
+	height: 100px;
+	width: 405px;
+	resize: none;
+	font-family: Arial, Helvetica, sans-serif;
 }
 </style>
 </head>
 <body>
 	<div class="log">
-	
+
 		<div class="loginbox">
-			<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png" alt="logo">
+			<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png"
+				alt="logo">
 
 			<h1>Login</h1>
 			<form action="login" method="post">
-				<label>Mobile No : </label> <input type="tel" name="phone_number"
-					placeholder="Ex : 9988776600" required/> <br> <br> <label>Password
-					: </label> <input type="password" name="password" placeholder="Inba1234"
-					required/> <br> <br>
+				<label>Mobile No</label> <input type="tel" name="phone_number"
+					placeholder="" required /> <br> <br> <label>Password</label>
+				<input type="password" name="password" placeholder="" required /> <br>
+				<br>
 				<button type="submit">Login</button>
-				<p>Don't have an account ? <a href="user/new">Sign Up Here</a></p>
+				<p>
+					Don't have an account ? <a href="user/new">Sign Up Here</a>
+				</p>
 			</form>
 		</div>
 	</div>

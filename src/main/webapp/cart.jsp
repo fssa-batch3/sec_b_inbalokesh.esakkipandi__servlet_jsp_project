@@ -14,7 +14,7 @@
 </head>
 <body>
 	<%
-	Object products = (Object) request.getAttribute("products");
+	Object products = (Object) request.getSession().getAttribute("productList");
 	%>
 
 	<%
@@ -56,7 +56,7 @@
 					alt="empty_cart" style="display: none;">
 				<h2 class="noItems" style="display: none;">No Items in your
 					cart!!</h2>
-				<div>
+				<div class="add-items">
 					<a href="menu"> <input type="button" value="+ Add items"
 						id="addItems">
 					</a>
@@ -105,8 +105,8 @@
     //********Order food list********//
 
     // Read Products function //
-
-
+    
+    
     let cartProducts = JSON.parse(localStorage.getItem("cart_product")) || [];
 
     const userProducts = cartProducts.filter((e) => e.user_id === <%=loggedNumber%>);
@@ -305,12 +305,6 @@
         div_sum3.setAttribute("class", "sum");
         div_sumlist.prepend(div_sum3);
 
-        // <h4 class="lsum">
-        h4_lsum = document.createElement("h4");
-        h4_lsum.setAttribute("class", "lsum");
-        h4_lsum.innerText = "Delivery time";
-        div_sum3.append(h4_lsum);
-
         // <div class="dtime">
         div_dtime = document.createElement("div");
         div_dtime.setAttribute("class", "dtime");
@@ -327,7 +321,7 @@
         div_sumlist.prepend(div_food_items);
 
         // <h4 class="name">
-        h4_name = document.createElement("h4");
+        h4_name = document.createElement("p");
         h4_name.setAttribute("class", "name");
         h4_name.innerText = cart_list[j].name +" ("+ productSummary.quantity_ordered+")";
         div_food_items.append(h4_name);
@@ -355,6 +349,39 @@
       p_rsum.setAttribute("class", "rsum");
       p_rsum.innerText = "Free";
       div_sum4.append(p_rsum);
+      
+
+      // <div class="sum">
+      const div_sum5 = document.createElement("div");
+      div_sum5.setAttribute("id", "sum_total");
+      div_sum5.setAttribute("class", "sum");
+      div_sumlist.append(div_sum5);
+
+      const div_total = document.createElement("div");
+      div_total.setAttribute("class", "total");
+      div_sum5.append(div_total);
+
+      // <h4 class="lsum">
+      h4_lsum = document.createElement("h4");
+      h4_lsum.setAttribute("class", "lsum");
+      h4_lsum.innerText = "Total";
+      div_total.append(h4_lsum);
+
+      // Cart total function //
+
+      const totalPrice = cart_list;
+      let price = 0;
+      for (let i = 0; i < totalPrice.length; i++) {
+        const find = userProducts.find((e) => e.product_id === cart_list[i].id);
+        price += parseInt(totalPrice[i].price * find.quantity_ordered);
+      }
+
+      // <p class="rsum">
+      p_rsum = document.createElement("p");
+      p_rsum.setAttribute("id", "total_cost");
+      p_rsum.setAttribute("class", "rsum");
+      p_rsum.innerText = "Rs. " + price;
+      div_total.append(p_rsum);
 
       // To get the default address //
 
@@ -382,6 +409,7 @@
             buttonElement.addEventListener("click", function addAddress() {
               window.location.href = "address/book";
             })
+            
           }
           else {
             // Address //
@@ -389,6 +417,7 @@
             // Create the selected-address container element
             const selectedAddressContainer = document.createElement('div');
             selectedAddressContainer.classList.add('selected-address');
+            selectedAddressContainer.setAttribute("data-addressId", defaultAddress.id);
             div_sumlist.append(selectedAddressContainer);
 
             // Create the top-tittle element
@@ -398,7 +427,7 @@
             // Create the shippment-address heading
             const shipmentAddressHeading = document.createElement('h3');
             shipmentAddressHeading.classList.add('shippment-address');
-            shipmentAddressHeading.textContent = 'Shipping Address';
+            shipmentAddressHeading.textContent = 'Delivery Address';
 
             // Create the change address button
             const changeAddressButton = document.createElement('button');
@@ -475,47 +504,18 @@
             
           }
           
-
-          // <div class="sum">
-          const div_sum5 = document.createElement("div");
-          div_sum5.setAttribute("id", "sum_total");
-          div_sum5.setAttribute("class", "sum");
-          div_sumlist.append(div_sum5);
-
-          const div_total = document.createElement("div");
-          div_total.setAttribute("class", "total");
-          div_sum5.append(div_total);
-
-          // <h4 class="lsum">
-          h4_lsum = document.createElement("h4");
-          h4_lsum.setAttribute("class", "lsum");
-          h4_lsum.innerText = "Total";
-          div_total.append(h4_lsum);
-
-          // Cart total function //
-
-          const totalPrice = cart_list;
-          let price = 0;
-          for (let i = 0; i < totalPrice.length; i++) {
-            const find = userProducts.find((e) => e.product_id === cart_list[i].id);
-            price += parseInt(totalPrice[i].price * find.quantity_ordered);
-          }
-
-          // <p class="rsum">
-          p_rsum = document.createElement("p");
-          p_rsum.setAttribute("id", "total_cost");
-          p_rsum.setAttribute("class", "rsum");
-          p_rsum.innerText = "Rs. " + price;
-          div_total.append(p_rsum);
-
           // <button class="place_order">
           const button_place_order = document.createElement("button");
           button_place_order.setAttribute("class", "place_order");
+          button_place_order.setAttribute("onclick", "placeOrder()");
           button_place_order.innerText = "Place Order";
           div_sumlist.append(button_place_order);
-          
-          }
+   
 
+
+        }
+		
+      
 		let addressId = JSON.parse(localStorage.getItem("addressId")) || [];
 		
 		let defaultAddress = [];  // Initialize defaultAddress as an empty array
@@ -523,36 +523,35 @@
 		let root = window.location.origin + "/onlyhomefoodWeb";
 		let globalDefaultAddress;  // Define a global variable to store defaultAddress
 		
-		const addresId = JSON.parse(localStorage.getItem("addressId"));
+		const addresId = JSON.parse(localStorage.getItem("addressId")) || [];
 		
-		async function getAddress() {
-		    const response = await fetch(root + "/address/get?addressId=" + addresId);
-		    try {
-		        if (response.ok) {
-		            const data = await response.json();
-		            if (data.status === 200) {
-		                selectedAddress.push(data.data);
-		            }
-		        }
-		    } catch (error) {
-		        console.error(error);
-		        alert(error);
-		    }
-		}
-		
-		if (addresId) {
+		if (addressId > 0) {
+			async function getAddress() {
+			    const response = await fetch(root + "/address/get?addressId=" + addresId);
+			    try {
+			        if (response.ok) {
+			            const data = await response.json();
+			            if (data.status === 200) {
+			                selectedAddress.push(data.data);
+			            }
+			        }
+			    } catch (error) {
+			        console.error(error);
+			        alert(error);
+			    }
+			}
 			 getAddress().then(() => {
 			        defaultAddress = selectedAddress[0];
 			        console.log(defaultAddress);// Assign the array directly
 			        addressCard(defaultAddress);
+			        
 			    });
 		   
 		} else {
 		    defaultAddress = <%=defaultAddress%>; // Assign defaultAddress based on your logic
 		    addressCard(defaultAddress);
+		    
 		}
-
-
 
       document.querySelector("div.summary").append(div_sumlist);
 
@@ -652,81 +651,88 @@
         });
       });
 
-      // Order product function //
-      document.querySelector(".place_order").addEventListener("click", function () {
-        const user_list = JSON.parse(localStorage.getItem("user_list"));
-
-        const current_user = user_list.find(
-          (user) => user.user_phonenumber === userId
-        );
-
-        const order_placed = JSON.parse(localStorage.getItem("order_list")) || [];
-
-        const ordered_items = JSON.parse(localStorage.getItem("ordered_items")) || [];
-
-        const d = new Date();
-
-        const total_price = document.querySelector("#total_cost").innerText.replace("Rs. ", "");
-
-        let delTime = "";
-        for (const user of userProducts) {
-          if (user.delivery_time !== "") {
-            delTime += 1;
-          } else {
-            delTime = "";
-            alert("Please select the delivery time and quantity");
-            break;
-          }
-        }
-
-        if (selectedAddress !== undefined) {
-          if (delTime !== "") {
-            if (userProducts.length > 0) {
-              const orderId = uuidv4();
-              if (confirm("Confirm your order")) {
-                order_placed.push({
-                  order_id: orderId,
-                  ordered_time: d,
-                  ordered_by: current_user.user_email,
-                  userId: userId,
-                  total_price: parseInt(total_price),
-                  delivery_address_Id : selectedAddress.address_id
-                });
-
-                for (let i = 0; i < userProducts.length; i++) {
-                  let status = userProducts[i];
-                  status.order_status = "Not Delivered";
-                  status.order_id = orderId;
-                }
-
-                ordered_items.push(...userProducts)
-
-                cartProducts = cartProducts.filter((e) => e.user_id !== userId);
-
-                localStorage.setItem("order_list", JSON.stringify(order_placed));
-                localStorage.setItem("ordered_items", JSON.stringify(ordered_items));
-                localStorage.setItem("cart_product", JSON.stringify(cartProducts));
-                localStorage.setItem("addressId", JSON.stringify(defaultAddress.address_id))
-                localStorage.setItem("food_count", 0);
-
-                document.querySelector(".placed").setAttribute("style", "display:inline-block");
-                document.querySelector("#content").setAttribute("style","opacity:0;");
-
-              }
-            } else {
-              alert("You have not added any products to the cart");
-              window.location.href = "../Menu/menu.html";
-            }
-          }
-        }
-        else {
-          alert("Add your address")
-        }
-      });
+     
     }
-		
-	</script>
+    
+    // Place order function
+    function placeOrder(){
+        // Order product function //
+  		let cartProducts = JSON.parse(localStorage.getItem("cart_product")) || [];
+	          	
+	    let userProducts = cartProducts.filter((e) => e.user_id === <%=loggedNumber%>)
+	          	
 
+	    const total_price = document.querySelector("#total_cost").innerText.replace("Rs. ", "");
+		const id = document.querySelector(".selected-address").getAttribute("data-addressId");
+	    		
+	    let delTime = "";
+      for (const user of userProducts) {
+      	if (user.delivery_time !== "") {
+          	delTime += 1;
+        	} else {
+          	delTime = "";
+          	alert("Please select the delivery time and quantity");
+          	break;
+        	}
+      }         
+	              
+	    let totalPrice = total_price;
+	    let createdBy = <%=user.getId()%>  
+	    console.log(createdBy);
+	    let addressId = id;
+
+		if (id !== null) {
+	    	if(delTime !== ""){
+	        	if (userProducts.length > 0) {
+	            	if (confirm("Confirm your order")) {
+	            		
+	            		let root = window.location.origin + "/onlyhomefoodWeb";
+
+	                	const url = root + '/order/create';
+	            	    console.log(userProducts);
+
+	                  	const data = {
+		                  		  "totalPrice" : totalPrice,
+		                  		  "createdBy" : createdBy,
+		                  		  "addressId" : addressId,
+		                  		  "orderedItems" : userProducts
+		                 }
+	                  		                  	  
+	              	  axios.post(url, data)
+	              	    .then(function (response) {
+	              	      const serverMsg = response.data.message;
+	              	      if (serverMsg == 'success') {
+
+	              	    	cartProducts = cartProducts.filter((e) => e.user_id != <%=loggedNumber%>)
+	  	                    localStorage.setItem("cart_product", JSON.stringify(cartProducts));
+	  	                    localStorage.removeItem("addressId");
+	  	                      
+	  	                    document.querySelector(".placed").setAttribute("style", "display:inline-block");
+	  	                    document.querySelector("#content").setAttribute("style","opacity:0;");
+	  	                    
+	              	      } else {
+	              	        console.log("server msg " + serverMsg);
+	              	      }
+	              	    })
+	              	    .catch(function (error) {
+	              	      console.log("error " + error);
+	              	    });	                    
+
+
+	            	}
+	            } else {
+	            	alert("You have not added any products to the cart");
+	                window.location.href = "onlyhomefoodWeb/menu";
+	            }
+	        }
+		}else {
+	    	alert("Add your address")
+	    }
+	}
+    
+    
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
 </html>

@@ -19,15 +19,15 @@
 
 </head>
 <body>
-
 	<jsp:include page="header.jsp"></jsp:include>
+
 
 	<%
 	Set<Product> list = (Set<Product>) request.getAttribute("allProducts");
-	
+
 	List<Product> listOfProducts = new ArrayList<>(list);
 
-    Collections.sort(listOfProducts, Comparator.comparingInt(Product::getId));
+	Collections.sort(listOfProducts, Comparator.comparingInt(Product::getId));
 	%>
 
 	<%
@@ -128,9 +128,7 @@
 
 				const product_id = this.dataset.id;
 				const userId = ${loggedNumber};
-		
-				console.log(cartProducts);
-				
+						
 				const exist = cartProducts.length && JSON.parse(localStorage.getItem("cart_product")).some(
 			            (data) => data.product_id === parseInt(product_id) && data.user_id === userId);
 				
@@ -141,15 +139,16 @@
 				        quantity_ordered: 1,
 				        delivery_time: "",
 					});
+					
 				    localStorage.setItem("cart_product", JSON.stringify(cartProducts));
-				    if(cartProducts.length == 1){
+				    
+				    let userProducts = cartProducts.filter((e) => e.user_id == userId);
+				    
+				    if(userProducts.length === 1){
 				    	window.location.reload();
 				    }
-					if (cartProducts) {
-				   		const find_user_products = cartProducts.filter((e) => e.user_id === <%=loggedNumber%>);
-						if (find_user_products) {
-							count.textContent = find_user_products.length;
-						}
+				    else if (userProducts) {
+						count.textContent = userProducts.length;
 					}
 				}else {
 			          alert("This product is already added to your cart");

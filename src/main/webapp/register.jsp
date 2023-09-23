@@ -90,25 +90,25 @@ h4.password_note{
 		<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png" alt="logo">
 		<h1>Sign Up</h1>
 		<form action="create" method="post">
-
-			<label>Name : </label> <input type="text" name="user_name"
-				placeholder="Ex : Inba lokesh" required /> <br> <br>
+		
+			<label>Name</label> <input type="text" name="user_name"
+				placeholder="" required /> <br> <br>
 				
-			<label>Mobile No : </label> <input type="tel" name="phone_number"
-				placeholder="Ex : 9988776655" required /> <br> <br>
+			<label>Mobile No</label> <input type="tel" name="phone_number"
+				placeholder="" required /> <br> <br>
 
-			<label>Email : </label> <input type="email" name="email"
-				placeholder="Ex : abc@gmail.com" required> <br> <br>
+			<label>Email</label> <input type="email" name="email"
+				placeholder="" required> <br> <br>
 				
-			<label>Password : </label> <input type="password" name="password"
-				placeholder="Inba1234" required />
+			<label>Password</label> <input type="password" name="password"
+				placeholder="" required />
 
 			<h4 class="password_note">(Password must contain at least one
 				number and one uppercase and lowercase letter, and at least 8 or
 				more characters)</h4>
 
-			<a href="/onlyhomefoodWeb/home"><button type="button">Home</button></a>
 			<button type="submit">Submit</button>
+			<p>Already have an account! <a href="<%=request.getContextPath()%>/login">Sign In Here</a></p>
 		</form>
 	</div>
 </body>

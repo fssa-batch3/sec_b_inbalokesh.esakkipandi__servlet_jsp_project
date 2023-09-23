@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -5,7 +7,6 @@ body{
 ::-webkit-scrollbar{
     display: none;
 }
-
 
 .hord h1{
     text-align: center;
@@ -17,19 +18,19 @@ body{
 }
 
 section{
-	height: 80vh;
+	min-height: 80vh;
 }
 
 .list{
     display: flex;
     justify-content: space-evenly; 
-    margin-bottom: 72px; 
+    margin-bottom: 35px; 
 }
 
 .obox{
     display: flex; 
     height: 15rem;
-    margin-bottom: 20px;
+    margin-bottom: 48px;
 }
 
 .obox img{
@@ -136,7 +137,8 @@ section{
 
 .summary{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height:100%;
+    min-height: 50vh;
+	height: 100%;
     width:300px;
     padding:10px 20px;
     border-radius: 10px;
@@ -155,16 +157,18 @@ section{
 
 .sum h4,.food_items h4{
     margin-top:5px;
+    font-family: 'Fira Code', monospace;
+    
 }
 
-.sum p,.food_items p{
-    margin:5px;
-    font-weight:bold;
-    color:rgb(120, 119, 119);
+.sum p,.food_items p{	
+    margin:2px;
+    font-family: 'Fira Code', monospace;
+    font-size : 15px;
 }
 
 .dtime{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: end;
 }
 
@@ -223,9 +227,13 @@ input[type=button]{
     text-align: center;
 }
 
+.add-items{
+	margin-bottom : 20px;
+}
 /* Shippment Address */
 .selected-address{
     height:200px;
+    margin-top : 15px;
 }
 
 .selected-address p{

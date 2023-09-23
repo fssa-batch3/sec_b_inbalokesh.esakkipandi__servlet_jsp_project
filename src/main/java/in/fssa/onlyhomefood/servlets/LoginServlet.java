@@ -48,12 +48,13 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			userService.loginUser(number, password);
+			
 			session.setAttribute("loggedNumber", number);
 			
 			if (number == 9876543218l) {
 				response.sendRedirect(request.getContextPath() + "/admin");
 			} else {
-				response.sendRedirect(request.getContextPath() + "/home");
+				response.sendRedirect(request.getContextPath() + "/profile");
 			}
 
 		} catch (ServiceException | ValidationException e) {

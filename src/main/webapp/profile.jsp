@@ -4,88 +4,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
-<style>
-body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	margin: 0;
-}
-
-section {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	margin-top: 100px;
-	height: 85vh;
-}
-
-.pro {
-	height: 32rem;
-	width: 32rem;
-	color: black;
-	background-color: #fafafa;
-	border-radius: 10px;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3)
-		0px 3px 7px -3px;
-}
-
-.pro h1 {
-	background-color: #5cb748;
-	border-radius: 10px 10px 0 0;
-	margin: 0;
-	color: white;
-	text-align: center;
-}
-
-.pbox {
-	display: flex;
-	justify-content: space-evenly;
-	margin-top: 50px;
-}
-
-.pbox img {
-	margin-top: 15px;
-}
-
-.pbox button {
-	height: 30px;
-	margin-top: 30px;
-	margin-left: 20px;
-	color: white;
-	border-color: transparent;
-	border-radius: 5px;
-	background-color: #FF7223;
-	cursor: pointer;
-}
-
-input {
-	height: 20px;
-	border-color: transparent;
-}
-
-textarea {
-	height: 90px;
-	border-color: transparent;
-	resize: none;
-}
-
-.sep {
-	display: flex;
-	flex-direction: column;
-	margin-top: 20px;
-	width: 90%;
-}
-
-::-webkit-scrollbar {
-	display: none;
-}
-</style>
+<link href="<%=request.getContextPath()%>/assets/css/profile.css"
+	rel="stylesheet" type="text/css">
 </head>
 <body>
 
 	<%
 	User user = (User) request.getAttribute("user");
+	%>
+
+	<%
+	Object addressList = (Object) request.getSession().getAttribute("addressList");
+	%>
+
+	<%
+	Object orderItems = (Object) request.getSession().getAttribute("orderItems");
+	%>
+
+	<%
+	Object orders = (Object) request.getSession().getAttribute("orders");
+	%>
+
+
+	<%
+	Object products = (Object) request.getSession().getAttribute("productList");
 	%>
 
 	<jsp:include page="header.jsp"></jsp:include>
@@ -129,7 +74,7 @@ textarea {
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="history">
 			<h2>My Orders</h2>
 			<div class="overflowbox"></div>
@@ -137,178 +82,148 @@ textarea {
 	</section>
 
 	<jsp:include page="footer.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
 	
-	 let div_obox;
-     let div_item;
-     let div_ihead;
-     let h3;
-     let h4;
-     let p;
-     let div_order;
-     let div_item_list;
-     let div_total;
-     let div_ordered_by;
-     let div_view_button;
-     let a_view;
-     let button;
+	const addressList = <%=addressList%> || [];
+	
+	const orderList = <%=orders%> || [];
+	console.log(orderList);
+	
+	const orderedItems = <%=orderItems%> || [];
 
-     for (let i = 0; i < 4; i++) {
-       // <div class="obox">
-       div_obox = document.createElement("div");
-       div_obox.setAttribute("class", "obox");
-       console.log(div_obox);
+	const product_list = <%=products%>;
+	    
+	if (orderList.length === 0 || orderedItems.length === 0) {
+	      document.querySelector(".history").setAttribute("style", "display:none");
+	    } else {
+	      // Order history loop//
+	      let div_obox;
+	      let div_item;
+	      let div_ihead;
+	      let h3;
+	      let h4;
+	      let p;
+	      let div_order;
+	      let div_item_list;
+	      let div_total;
+	      let div_ordered_by;
+	      let div_view_button;
+	      let a_view;
+	      let button;
 
-       // <div class="item">
-       div_item = document.createElement("div");
-       div_item.setAttribute("class", "item");
-       div_obox.append(div_item);
+	      for (let i = 0; i < orderList.length; i++) {
+	        // <div class="obox">
+	        div_obox = document.createElement("div");
+	        div_obox.setAttribute("class", "obox");
+	        // console.log(div_obox);
 
-       // <div class="ihead">
-       div_ihead = document.createElement("div");
-       div_ihead.setAttribute("class", "ihead");
-       div_item.append(div_ihead);
+	        // <div class="item">
+	        div_item = document.createElement("div");
+	        div_item.setAttribute("class", "item");
+	        div_obox.append(div_item);
 
-       // <h3>
-       h3 = document.createElement("h3");
-       h3.innerText = `Order:#${i + 1}`;
-       div_ihead.append(h3);
+	        // <div class="ihead">
+	        div_ihead = document.createElement("div");
+	        div_ihead.setAttribute("class", "ihead");
+	        div_item.append(div_ihead);
 
-       //const itemsCart = orderItem.filter((e) => orderedItems[i].order_id === e.order_id);
-       //console.log(itemsCart)
+	        // <h3>
+	        h3 = document.createElement("h3");
+	        h3.innerText = "Order:#" + (i + 1);
+	        div_ihead.append(h3);
+	        
+	        const itemsCart = orderedItems.filter((e) => e.orderId === orderList[i].id);
 
-       // <h3>
-       h3 = document.createElement("h3");
-      // h3.innerText = `Items` + `(${itemsCart.length})`;
-       h3.innerText = "Items (1)";
-       div_item.append(h3);
+	        // <h3>
+	        h3 = document.createElement("h3");
+	        h3.innerText = "Items(" + itemsCart.length + ")";
+	        div_item.append(h3);
 
-       
-       // Date format to show //
-       const d = new Date(orderedItems[i].ordered_time);
-       const weekday = new Array("Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat");
-       const dayOfWeek = weekday[d.getDay()];
-       const domEnder = (function () {
-         let a = d;
-         if (/1/.test(parseInt(`${a}`.charAt(0)))) return "th";
-         a = parseInt(`${a}`.charAt(1));
-         return a === 1 ? "st" : a === 2 ? "nd" : a === 3 ? "rd" : "th";
-       })();
-       const dayOfMonth = (d.getDate() < 10 ? "0" : "") + d.getDate() + domEnder;
-       const months = new Array(
-         "January",
-         "February",
-         "March",
-         "April",
-         "May",
-         "June",
-         "July",
-         "August",
-         "September",
-         "October",
-         "November",
-         "December"
-       );
-       const curMonth = months[d.getMonth()];
-       const curYear = d.getFullYear();
-       const curHour =
-         d.getHours() > 12
-           ? d.getHours() - 12
-           : d.getHours() < 10
-             ? `0${d.getHours()}`
-             : d.getHours();
-       const curMinute =
-         d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes();
-       const curSeconds =
-         d.getSeconds() < 10 ? `0${d.getSeconds()}` : d.getSeconds();
-       const curMeridiem = d.getHours() >= 12 ? "PM" : "AM";
-       const orderTime = `${dayOfMonth} ${curMonth} ${curYear},${dayOfWeek} ${curHour}:${curMinute}:${curSeconds} ${curMeridiem}`;
+	        // Weekday 
+	        
+	        const d = new Date(orderList[i].createdAt);
+        	const weekday = new Array("Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat");
+        	const dayOfWeek = weekday[d.getDay()];
+        	
+	        // <p>
+	        p = document.createElement("p");
+	        p.innerText = (dayOfWeek) + ", " + orderList[i].createdAt  ;
+	        div_item.append(p);
 
-       // <p>
-       p = document.createElement("p");
-       p.innerText = orderTime;
-       div_item.append(p);
+	        // <div class="order">
+	        div_order = document.createElement("div");
+	        div_order.setAttribute("class", "order");
+	        div_obox.append(div_order);
 
-       // <div class="order">
-       div_order = document.createElement("div");
-       div_order.setAttribute("class", "order");
-       div_obox.append(div_order);
+	        // <div class="item_list">
+	        div_item_list = document.createElement("div");
+	        div_item_list.setAttribute("class", "item_list");
+	        div_order.append(div_item_list);
 
-       // <div class="item_list">
-       div_item_list = document.createElement("div");
-       div_item_list.setAttribute("class", "item_list");
-       div_order.append(div_item_list);
+	        const items = itemsCart;
 
-       const items = itemsCart;
+	        // Loop for food
+	        for (const item of items) {
+	          // function for filtering products
+	          const foodItems = product_list.filter(
+	            (product) => item.productId === product.id
+	          );
 
-       // Loop for food
-       for (const item of items) {
-         // function for filtering products
-         const foodItems = product_list.filter(
-           (product) => item.product_id === product.product_id
-         );
+	          // create <h4> element for food list
+	          const h4 = document.createElement("h4");
+	          h4.innerText = foodItems[0].name + "(" + item.quantityOrdered +")";
+	          div_item_list.append(h4);
+	        }
 
-         // create <h4> element for food list
-         const h4 = document.createElement("h4");
-         //h4.innerText = `${foodItems[0].product_name} (${item.quantity_ordered})`;
-         h4.innerText = "Chapathi(2)";
-         div_item_list.append(h4);
-       }
+	        // <div class="total">
+	        div_total = document.createElement("div");
+	        div_total.setAttribute("class", "total");
+	        div_order.append(div_total);
 
-       // <div class="total">
-       div_total = document.createElement("div");
-       div_total.setAttribute("class", "total");
-       div_order.append(div_total);
+	        // <h3> Total//
+	        h3 = document.createElement("h3");
+	        h3.innerText = "Total";
+	        div_total.append(h3);
 
-       // <h3> Total//
-       h3 = document.createElement("h3");
-       h3.innerText = "Total";
-       div_total.append(h3);
+	        // <h4> price//
+	        h4 = document.createElement("h4");
+	        h4.innerText = "Rs. " + orderList[i].totalPrice;
+	        div_total.append(h4);
 
-       // <h4> price//
-       h4 = document.createElement("h4");
-       //h4.innerText = `Rs. ${orderedItems[i].total_price}`;
-       h4.innerText = "Rs. 59";
-       div_total.append(h4);
+	        // <div class="ordered_by">
+	        div_ordered_by = document.createElement("div");
+	        div_ordered_by.setAttribute("class", "order_by");
+	        div_order.append(div_ordered_by);
 
-       // <div class="ordered_by">
-       div_ordered_by = document.createElement("div");
-       div_ordered_by.setAttribute("class", "order_by");
-       div_order.append(div_ordered_by);
+	        // Find the person who ordered //
+	        const orderPerson = addressList.filter((e)=> e.id === orderList[i].deliveryAddressId);
 
-       // Find the person who ordered //
-       const deliveryPersonName = address.filter((e)=> e.address_id === orderedItems[i].delivery_address_Id);
-       console.log(deliveryPersonName)
+	        // <h4> email//
+	        h4 = document.createElement("h4");
+	        h4.innerText = "Ordered by: " + orderPerson[0].name;
+	        div_ordered_by.append(h4);
 
-       // <h4> email//
-       h4 = document.createElement("h4");
-       //h4.innerText = `Ordered by: ${deliveryPersonName[0].name}`;
-       h4.innerText = "Ordered by: Inba";
-       div_ordered_by.append(h4);
+	        // <div class="view_button">
+	        div_view_button = document.createElement("div");
+	        div_view_button.setAttribute("class", "view_button");
+	        div_order.append(div_view_button);
 
-       // <div class="view_button">
-       div_view_button = document.createElement("div");
-       div_view_button.setAttribute("class", "view_button");
-       div_order.append(div_view_button);
+	        // <a class = view>
+	        a_view = document.createElement("a");
+	        a_view.setAttribute("class", "view");
+	        a_view.setAttribute("href","/onlyhomefoodWeb/order/view?orderId=" + orderList[i].id);
+	        div_view_button.append(a_view);
 
-       // <a class = view>
-       a_view = document.createElement("a");
-       a_view.setAttribute("class", "view");
-       a_view.setAttribute(
-         "href",
-         `./orderhistory.html?order_id=${orderedItems[i].order_id}`
-       );
-       div_view_button.append(a_view);
+	        // <button>
+	        button = document.createElement("button");
+	        button.setAttribute("type", "button");
+	        button.innerText = "View details";
+	        a_view.append(button);
 
-       // <button>
-       button = document.createElement("button");
-       button.setAttribute("type", "button");
-       button.innerText = "View details";
-       a_view.append(button);
-
-       document.querySelector("div.overflowbox").prepend(div_obox);
-     }
+	        document.querySelector("div.overflowbox").prepend(div_obox);
+	      }
+	    }
 	</script>
 
 </body>

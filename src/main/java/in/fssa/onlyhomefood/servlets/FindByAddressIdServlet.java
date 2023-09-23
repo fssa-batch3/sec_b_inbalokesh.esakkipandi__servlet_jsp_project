@@ -23,9 +23,6 @@ public class FindByAddressIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setHeader("Access-Control-Allow-Origin", "*"); // Replace '*' with your allowed origin(s)
-	     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-	     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		
 		AddressService addressService = new AddressService();
 		int addressId = Integer.parseInt(request.getParameter("addressId"));
