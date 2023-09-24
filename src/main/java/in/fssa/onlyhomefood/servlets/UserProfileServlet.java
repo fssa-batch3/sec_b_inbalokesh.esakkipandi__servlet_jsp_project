@@ -67,7 +67,7 @@ public class UserProfileServlet extends HttpServlet {
 			session.setAttribute("orderItems", orderItemsList);
 
 			AddressService addressService = new AddressService();
-			List<Address> address = addressService.getAllUserAddress(user.getId());
+			List<Address> address = addressService.getAllUserAddresses(user.getId());
 
 			String addressList = gson.toJson(address);
 			response.setContentType("application/json");

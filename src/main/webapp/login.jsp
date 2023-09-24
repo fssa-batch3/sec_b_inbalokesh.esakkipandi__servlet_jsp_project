@@ -14,9 +14,10 @@ img {
 
 .log {
 	display: flex;
-	justify-content: center;
 	position: relative;
 	top: 150px;
+	flex-direction: column;
+	align-items: center;
 }
 
 .loginbox {
@@ -77,33 +78,74 @@ button:hover {
 	transform: scale(1.02);
 }
 
-textarea {
-	height: 100px;
-	width: 405px;
-	resize: none;
-	font-family: Arial, Helvetica, sans-serif;
+
+.error-notice {
+	margin: 5px; /* Make sure to keep some distance from all sides */
+}
+
+.oaerror {
+	width: 320px;
+	height : auto;
+	background-color: #ffffff;
+	padding: 7px;
+	border: 1px solid #eee;
+	border-left-width: 5px;
+	border-radius: 5px;
+	margin: 10px auto;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+}
+
+.danger {
+	border-left-color: #ed114e; /* Left side border color */
+	background-color: rgb(255 234 234);;
+	/*Same color as the left border with reduced alpha to 0.1*/
+}
+
+.danger strong {
+	color: #ed114e;
 }
 </style>
 </head>
 <body>
+
+	<% String errorMessage = request.getParameter("errorMessage");%>
+	
+	<% Long number = (Long) request.getAttribute("number");%>
+	
 	<div class="log">
+
 
 		<div class="loginbox">
 			<img src="<%=request.getContextPath()%>/assets/Images/LOGO.png"
 				alt="logo">
 
 			<h1>Login</h1>
+
 			<form action="login" method="post">
-				<label>Mobile No</label> <input type="tel" name="phone_number"
-					placeholder="" required /> <br> <br> <label>Password</label>
-				<input type="password" name="password" placeholder="" required /> <br>
-				<br>
+				<label>Mobile No</label> <input type="tel"
+					pattern="[6-9]{1}[0-9]{9}" title="+91 format number only"
+					maxlength="10" name="phone_number" placeholder="" value="<%=number == null ? "" : number %>" required /> <br>
+				<br> <label>Password</label> <input type="password"
+					name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+					placeholder="" required /> <br> <br>
+
 				<button type="submit">Login</button>
 				<p>
 					Don't have an account ? <a href="user/new">Sign Up Here</a>
 				</p>
 			</form>
+
 		</div>
+		<% if(errorMessage != null){%>
+		<div class="error-notice">
+			<div class="oaerror danger">
+				 <p> <strong>Error </strong>- <%=errorMessage%>.Please try again.
+				</p>
+			</div>
+		</div>
+		<% }%>
 	</div>
 </body>
 </html>

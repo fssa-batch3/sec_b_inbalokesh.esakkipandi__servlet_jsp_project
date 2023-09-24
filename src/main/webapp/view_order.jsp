@@ -28,35 +28,45 @@
 	<%
 	Object products = (Object) request.getSession().getAttribute("productList");
 	%>
-	
-	
+
+
 	<%
 	Long userNumber = (Long) request.getSession().getAttribute("loggedNumber");
 	%>
-	
-	
-	
+
+
+
 	<jsp:include page="header.jsp"></jsp:include>
-	
+
 
 	<section class="order_details"></section>
 
 	<script type="text/javascript">
-		const addressList = <%=addressList%>|| [];
+		const addressList =
+	<%=addressList%>
+		|| [];
 
-		const order_history = <%=orders%> || [];
-		
-		const orderItem = <%=orderItems%> || [];
-		
-		const product_list = <%=products%> || [];
-		
-		const userNumber = <%= userNumber%>;
+		const order_history =
+	<%=orders%>
+		|| [];
 
+		const orderItem =
+	<%=orderItems%>
+		|| [];
+
+		const product_list =
+	<%=products%>
+		|| [];
+
+		const userNumber =
+	<%=userNumber%>
+		;
 	</script>
 	<script
 		src="<%=request.getContextPath()%>/assets/javascript/view_order.js">
 		
 	</script>
+
 
 </body>
 </html>

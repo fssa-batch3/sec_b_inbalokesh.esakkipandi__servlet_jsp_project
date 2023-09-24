@@ -386,7 +386,7 @@
       // To get the default address //
 
       function addressCard(defaultAddress){
-          if (defaultAddress === undefined) {
+          if (defaultAddress === null || defaultAddress === undefined ) {
             // Create the <div> element
             const divElement = document.createElement('div');
             divElement.setAttribute('class', 'empty-address');
@@ -661,9 +661,15 @@
 	          	
 	    let userProducts = cartProducts.filter((e) => e.user_id === <%=loggedNumber%>)
 	          	
-
 	    const total_price = document.querySelector("#total_cost").innerText.replace("Rs. ", "");
-		const id = document.querySelector(".selected-address").getAttribute("data-addressId");
+	    
+	    let id = null;
+	    if(<%=defaultAddress%> !== null){
+			id = document.querySelector(".selected-address").getAttribute("data-AddressId");
+	    }
+
+		console.log(id);
+	    
 	    		
 	    let delTime = "";
       for (const user of userProducts) {

@@ -52,8 +52,8 @@
 									type="button" id="address-btn">Address Book</button></a> <a
 								href="<%=request.getContextPath()%>/user/delete?id=<%=user.getId()%>"><button
 									type="button" id="delete-btn">Delete</button></a> <a
-								href="<%=request.getContextPath()%>/logout"><button
-									type="submit" id="logout_user">Logout</button></a>
+								href="#"><button
+									type="button" onclick="logOut()" id="logout_user">Logout</button></a>
 						</div>
 
 					</div>
@@ -198,6 +198,7 @@
 
 	        // Find the person who ordered //
 	        const orderPerson = addressList.filter((e)=> e.id === orderList[i].deliveryAddressId);
+	        console.log(orderPerson);
 
 	        // <h4> email//
 	        h4 = document.createElement("h4");
@@ -224,6 +225,11 @@
 	        document.querySelector("div.overflowbox").prepend(div_obox);
 	      }
 	    }
+	
+	function logOut(){
+		localStorage.removeItem("addressId");
+		window.location.href = "/onlyhomefoodWeb/logout"
+	}
 	</script>
 
 </body>

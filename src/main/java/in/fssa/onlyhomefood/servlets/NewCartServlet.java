@@ -41,40 +41,50 @@ public class NewCartServlet extends HttpServlet {
 		ProductService productService = new ProductService();
 		AddressService addressService = new AddressService();
 
+		String responseJson = "";
+
+		User user = new User();
 		try {
 
 			Set<Product> listofproducts = productService.getAllProducts();
-			
+
 			List<Product> list = new ArrayList<>(listofproducts);
 
-		    Collections.sort(list, Comparator.comparingInt(Product::getId));
-			
-		
+			Collections.sort(list, Comparator.comparingInt(Product::getId));
+
 			Gson gson = new Gson();
-			String responseJson = gson.toJson(list);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-
+			responseJson = gson.toJson(list);
 			request.setAttribute("products", responseJson);
-			
+
 			long phone_number = (Long) request.getSession().getAttribute("loggedNumber");
 			UserService userService = new UserService();
-			
-			User user = userService.findUserByPhoneNumber(phone_number);
-			
+
+			user = userService.findUserByPhoneNumber(phone_number);
+
 			Address address = addressService.findDefaultAddress(user.getId());
 			String addressJson = gson.toJson(address);
-			
+
 			request.setAttribute("defaultAddress", addressJson);
-			
+
 			request.setAttribute("user", user);
-			
+
 			RequestDispatcher req = request.getRequestDispatcher("/cart.jsp");
 			req.forward(request, response);
-			
+
 		} catch (NumberFormatException | ValidationException | ServiceException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
+			String message = e.getMessage();
+			if (message.contains("Address Id")) {
+
+				request.setAttribute("user", user);
+				request.setAttribute("products", responseJson);
+
+				RequestDispatcher req = request.getRequestDispatcher("/cart.jsp");
+				req.forward(request, response);
+
+			}
 		}
 
 	}

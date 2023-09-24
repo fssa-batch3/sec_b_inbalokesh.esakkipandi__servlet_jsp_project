@@ -3,6 +3,7 @@ package in.fssa.onlyhomefood.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,8 +46,14 @@ public class CreateUserServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login");
 			
 		} catch (ValidationException | ServiceException e) {
-			e.printStackTrace();
-			throw new ServletException(e.getMessage());
+			String error = e.getMessage();
+			if(error.contains("Duplicate")) {
+				error = "Try with different mobile number";
+			}
+			request.setAttribute("user", user);
+			
+			RequestDispatcher req = request.getRequestDispatcher("/register.jsp?errorMessage=" + error);
+			req.forward(request, response);		
 		}
 	}
 
