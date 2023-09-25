@@ -72,6 +72,21 @@ button:hover {
 	justify-content : space-between;
 }
 
+#product_type {
+	padding: 12px 8px;
+	width: 100%;
+	color: #555;
+	background-color: rgb(255, 255, 255);
+	cursor: pointer;
+	border-radius: 5px;
+	margin-bottom:11px;
+	border: 1px solid #ccc;
+}
+
+option {
+	color: #555;
+	background-color: transparent;
+}
 
 </style>
 </head>
@@ -93,22 +108,24 @@ button:hover {
 		<form action="update?id=<%= id %>" method="post">
 			
 			<label>Image : </label> <input type="url" name="image"
-			value = "<%= product.getImage() %>" required /> <br> <br>
+			value = "<%= product.getImage() %>" pattern="https://.*" required /> <br> <br>
 				 
-			<label>Food Name : </label> <input type="text" name="name"
+			<label>Food Name : </label> <input type="text" name="name" minlength="3" pattern="[a-zA-Z ]+"
 			value = "<%= product.getName() %>" readonly /> <br> <br>
-				
-			<label>Food Type : </label> <input type="text" name="type"
-			value = "<%= product.getType() %>" required /> <br> <br>
+			
+			<label for="type">Food Type</label> <select id="product_type" value="<%= product.getType() %>" name="type" required>
+				<option value="Veg">Veg</option>
+				<option value="Non-veg">Non-veg</option>
+			</select>
 
 			<label>Price : </label> <input type="number" name="price" min="1"
-			value="<%= product.getPrice()%>" required> <br> <br>
+			value="<%= product.getPrice()%>" min="1" max="999" required> <br> <br>
 				
 			<label>Quantity : </label> <input type="number" name="quantity" min="1"
-			value = "<%=product.getQuantity()%>" required /> <br> <br>
+			value = "<%=product.getQuantity()%>" min="1" max="999" required /> <br> <br>
 			
 			<label>Quantity Type : </label> <input type="text" name="quantity_type"
-			value = "<%= product.getQuantityType()%>" required /> <br> <br>
+			value = "<%= product.getQuantityType()%>" pattern="[a-zA-Z ]+" required /> <br> <br>
 				 
 			<div class="buttons">
 				<a href="<%= request.getContextPath()%>/products"><button type="button">Back</button></a>

@@ -78,14 +78,13 @@ button:hover {
 	transform: scale(1.02);
 }
 
-
 .error-notice {
 	margin: 5px; /* Make sure to keep some distance from all sides */
 }
 
 .oaerror {
 	width: 320px;
-	height : auto;
+	height: auto;
 	background-color: #ffffff;
 	padding: 7px;
 	border: 1px solid #eee;
@@ -98,7 +97,7 @@ button:hover {
 
 .danger {
 	border-left-color: #ed114e; /* Left side border color */
-	background-color: rgb(255 234 234);;
+	background-color: rgb(255, 234, 234);;
 	/*Same color as the left border with reduced alpha to 0.1*/
 }
 
@@ -109,10 +108,14 @@ button:hover {
 </head>
 <body>
 
-	<% String errorMessage = request.getParameter("errorMessage");%>
-	
-	<% Long number = (Long) request.getAttribute("number");%>
-	
+	<%
+	String errorMessage = request.getParameter("errorMessage");
+	%>
+
+	<%
+	Long number = (Long) request.getAttribute("number");
+	%>
+
 	<div class="log">
 
 
@@ -125,9 +128,10 @@ button:hover {
 			<form action="login" method="post">
 				<label>Mobile No</label> <input type="tel"
 					pattern="[6-9]{1}[0-9]{9}" title="+91 format number only"
-					maxlength="10" name="phone_number" placeholder="" value="<%=number == null ? "" : number %>" required /> <br>
-				<br> <label>Password</label> <input type="password"
-					name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					maxlength="10" name="phone_number" placeholder=""
+					value="<%=number == null ? "" : number%>" required /> <br> <br>
+				<label>Password</label> <input type="password" name="password"
+					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 					placeholder="" required /> <br> <br>
 
@@ -138,14 +142,20 @@ button:hover {
 			</form>
 
 		</div>
-		<% if(errorMessage != null){%>
+		<%
+		if (errorMessage != null) {
+		%>
 		<div class="error-notice">
 			<div class="oaerror danger">
-				 <p> <strong>Error </strong>- <%=errorMessage%>.Please try again.
+				<p>
+					<strong>Error </strong>-
+					<%=errorMessage%>.Please try again.
 				</p>
 			</div>
 		</div>
-		<% }%>
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

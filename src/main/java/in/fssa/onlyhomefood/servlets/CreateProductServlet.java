@@ -1,8 +1,8 @@
 package in.fssa.onlyhomefood.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +31,6 @@ public class CreateProductServlet extends HttpServlet {
 		ProductService productService = new ProductService();
 		Product product = new Product();
 
-		PrintWriter out = response.getWriter();
-
 		product.setImage(request.getParameter("image"));
 		product.setName(request.getParameter("name"));
 		product.setType(request.getParameter("type"));
@@ -42,13 +40,15 @@ public class CreateProductServlet extends HttpServlet {
 
 		try {
 			productService.createNewProduct(product);
-			out.print("Product has been created sucessfully");
 
 			response.sendRedirect(request.getContextPath() + "/products");
 
 		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			throw new ServletException(e.getMessage());
+			String error = e.getMessage();
+
+			RequestDispatcher req = request.getRequestDispatcher("/create_product.jsp?errorMessage=" + error);
+			req.forward(request, response);
 		}
 
 	}

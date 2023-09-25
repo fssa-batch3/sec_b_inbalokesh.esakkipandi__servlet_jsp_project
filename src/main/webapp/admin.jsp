@@ -77,7 +77,7 @@ section {
 				<p>Where flavors tell stories and every meal is a journey back to the heart.</p>
 			</div>
 			<img
-				src="https://fssa-batch3.github.io/inbalokesh.esakkipandi__web_project/assets/Images/our%20aim.webp"
+				src="./assets/Images/our aim.webp"
 				alt="food image">
 		</div>
 	</section>

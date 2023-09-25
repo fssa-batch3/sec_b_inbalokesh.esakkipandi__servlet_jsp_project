@@ -11,14 +11,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List All Products</title>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 <style>
 /* Center-align the heading */
-body{
-	margin:0;
+body {
+	margin: 0;
 }
 
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+	display: none;
+}
+
+.div-table{
+	width:80%;
+	margin:auto;
+	margin-bottom:50px;
 }
 
 .heading {
@@ -71,17 +79,17 @@ td {
 }
 
 button {
-  padding: 8px 16px;
-  background-color: #4CAF50; /* Green color */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	padding: 8px 16px;
+	background-color: #4CAF50; /* Green color */
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #45a049; /* Slightly darker green on hover */
+	background-color: #45a049; /* Slightly darker green on hover */
 }
 
 /* Style the image */
@@ -90,8 +98,6 @@ img.product_image {
 	display: block;
 	margin: 0 auto;
 }
-
-
 </style>
 </head>
 <body>
@@ -103,36 +109,50 @@ img.product_image {
 	%>
 
 	<h1 class="heading">PRODUCTS</h1>
-	<table>
-		<tr>
-			<th>Image</th>
-			<th>Name</th>
-			<th>Type</th>
-			<th>Price</th>
-			<th>Quantity</th>
-			<th>Quantity Type</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</tr>
-		<%
-		for (Product product : listOfProducts) {
-		%>
-		<tr>
-			<td><img class="product_image" src="<%=product.getImage()%>"
-				alt="<%=product.getImage()%> Image" height="70px"></td>
-			<td><%=product.getName()%></td>
-			<td><%=product.getType()%></td>
-			<td><%=product.getPrice()%></td>
-			<td><%=product.getQuantity()%></td>
-			<td><%=product.getQuantityType()%></td>
-			<td><a href="product/edit?id=<%=product.getId()%>"><button>Edit</button></a></td>
-			<td><a href="product/delete?id=<%=product.getId()%>"><button>Delete</button></a></td>
-		</tr>
-		<%
-		}
-		%>
+	<div class="div-table">
+		<table id="table-container">
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Quantity Type</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<%
+			for (Product product : listOfProducts) {
+			%>
+			<tr>
+				<td><img class="product_image" src="<%=product.getImage()%>"
+					alt="<%=product.getImage()%> Image" height="70px"></td>
+				<td><%=product.getName()%></td>
+				<td><%=product.getType()%></td>
+				<td><%=product.getPrice()%></td>
+				<td><%=product.getQuantity()%></td>
+				<td><%=product.getQuantityType()%></td>
+				<td><a href="product/edit?id=<%=product.getId()%>"><button>Edit</button></a></td>
+				<td><a href="product/delete?id=<%=product.getId()%>"><button>Delete</button></a></td>
+			</tr>
+			<%
+			}
+			%>
+			
+		</table>
 
-	</table>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#table-container').DataTable();
+		});
+	</script>
 
 </body>
 </html>
