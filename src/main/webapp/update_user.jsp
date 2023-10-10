@@ -121,10 +121,8 @@ textarea {
 								<label>Email</label> <input type="email" id="user_email"
 									value="${user.getEmail()}" name="email" readonly>
 							</div>
-							<div class="sep">
-								<label>Password</label> <input type="text" id="user_id"
-									value="${user.getPassword()}" name = "password" required>
-							</div>
+							
+							<input type="hidden" id="password" value="${user.getPassword()}" name="password" required>
 						</div>
 					</div>
 				</div>

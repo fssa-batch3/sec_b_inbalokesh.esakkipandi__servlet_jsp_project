@@ -1,3 +1,7 @@
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="in.fssa.onlyhomefood.model.Address"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="in.fssa.onlyhomefood.model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -51,8 +55,7 @@
 								href="<%=request.getContextPath()%>/address/book"><button
 									type="button" id="address-btn">Address Book</button></a> <a
 								href="<%=request.getContextPath()%>/user/delete?id=<%=user.getId()%>"><button
-									type="button" id="delete-btn">Delete</button></a> <a
-								href="#"><button
+									type="button" id="delete-btn">Delete</button></a> <a href="#"><button
 									type="button" onclick="logOut()" id="logout_user">Logout</button></a>
 						</div>
 
@@ -70,6 +73,12 @@
 							<label>Email</label> <input type="email" id="user_email"
 								value="${user.getEmail()}" disabled>
 						</div>
+
+						<div class="sep">
+							<label class="addr">Address</label>
+							<textarea type="text" id="user_address"
+								placeholder="Your address" disabled></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -86,9 +95,14 @@
 	<script type="text/javascript">
 	
 	const addressList = <%=addressList%> || [];
+	if(addressList){	
+		let profileAddress = addressList.find((e)=> e.defaultStatus == true);
+		console.log(profileAddress);
+		document.getElementById("user_address").innerText = profileAddress.streetName + ", " + profileAddress.townName
+		+", " + profileAddress.city + " - " + profileAddress.pinCode+ ".";
+	}
 	
 	const orderList = <%=orders%> || [];
-	console.log(orderList);
 	
 	const orderedItems = <%=orderItems%> || [];
 
@@ -198,7 +212,6 @@
 
 	        // Find the person who ordered //
 	        const orderPerson = addressList.filter((e)=> e.id === orderList[i].deliveryAddressId);
-	        console.log(orderPerson);
 
 	        // <h4> email//
 	        h4 = document.createElement("h4");

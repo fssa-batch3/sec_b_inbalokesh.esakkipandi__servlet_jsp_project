@@ -29,6 +29,9 @@
 	Object products = (Object) request.getSession().getAttribute("productList");
 	%>
 
+	<%
+	Object prices = (Object) request.getSession().getAttribute("priceList");
+	%>
 
 	<%
 	Long userNumber = (Long) request.getSession().getAttribute("loggedNumber");
@@ -60,6 +63,9 @@
 
 		const userNumber =
 	<%=userNumber%>
+		;
+		let pricesList =
+	<%=prices%>
 		;
 	</script>
 	<script

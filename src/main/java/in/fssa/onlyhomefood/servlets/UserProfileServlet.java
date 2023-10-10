@@ -20,10 +20,12 @@ import in.fssa.onlyhomefood.model.Address;
 import in.fssa.onlyhomefood.model.Order;
 import in.fssa.onlyhomefood.model.OrderedItems;
 import in.fssa.onlyhomefood.model.Product;
+import in.fssa.onlyhomefood.model.ProductPrice;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.service.AddressService;
 import in.fssa.onlyhomefood.service.OrderItemService;
 import in.fssa.onlyhomefood.service.OrderService;
+import in.fssa.onlyhomefood.service.ProductPriceService;
 import in.fssa.onlyhomefood.service.ProductService;
 import in.fssa.onlyhomefood.service.UserService;
 
@@ -83,6 +85,14 @@ public class UserProfileServlet extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 
 			session.setAttribute("productList", productList);
+			
+			ProductPriceService priceService = new ProductPriceService();
+			Set<ProductPrice> prices = priceService.getAllProductPrice();
+			
+			String priceList = gson.toJson(prices);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			session.setAttribute("priceList", priceList);
 					
 			RequestDispatcher req = request.getRequestDispatcher("/profile.jsp");
 			req.forward(request, response);

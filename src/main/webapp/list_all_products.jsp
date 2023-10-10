@@ -37,12 +37,9 @@ body {
 }
 
 /* Style the table container */
-.table-container {
-	margin: 20px auto;
-	max-width: 800px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	overflow: hidden;
+#table-box {
+	/*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+	padding-top:20px;
 }
 
 /* Style the table */
@@ -97,6 +94,8 @@ img.product_image {
 	max-height: 70px;
 	display: block;
 	margin: 0 auto;
+	object-fit: cover;
+    width: 110px;
 }
 </style>
 </head>
@@ -110,7 +109,7 @@ img.product_image {
 
 	<h1 class="heading">PRODUCTS</h1>
 	<div class="div-table">
-		<table id="table-container">
+		<table id="table-box">
 			<thead>
 				<tr>
 					<th>Image</th>
@@ -150,7 +149,7 @@ img.product_image {
 		src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#table-container').DataTable();
+			$('#table-box').DataTable();
 		});
 	</script>
 

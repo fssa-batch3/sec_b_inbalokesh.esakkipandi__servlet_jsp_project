@@ -117,7 +117,6 @@
                 divButtons.appendChild(setDefaultButton);
             }
             else {
-            	console.log("Inba");
                 addressBox.classList.add("selectedBox");
                 addressHeading.textContent = "Address " + [i + 1] + " (Default)";
                 greenTickImage.setAttribute("src", "/onlyhomefoodWeb/assets/Images/green_tick-removebg-preview.png");
@@ -213,8 +212,7 @@
 
                 let parentDiv = this.closest(".addressBox");
                 let address_id = parentDiv.dataset.address;
-           		
-                console.log(address_id);
+       
                 const url = '/onlyhomefoodWeb/address/status';  // Replace with your actual API endpoint
                 
                 const formdata = new FormData();
@@ -241,9 +239,7 @@
                   })
                   .catch(error => {
                     console.error('Error:', error);
-                  });
-
-                
+                  }); 
                 
             });
         });
@@ -255,6 +251,14 @@
                 let parentDiv = this.closest(".addressBox");
                 let address_id = parentDiv.dataset.address;
 
+        		let setDefaultAddress = userAddress.find((e)=> e.defaultStatus == true);
+        		
+                if(parseInt(address_id) === setDefaultAddress.id){
+            		console.log("Inba");
+
+                	alert("Default Address cannot be deleted");
+                }else{
+        
 				const url = '/onlyhomefoodWeb/address/delete';  // Replace with your actual API endpoint
                 
                 const formdata = new FormData();
@@ -282,8 +286,7 @@
                   .catch(error => {
                     console.error('Error:', error);
                   });
-
-                
+                }
             })
         })
 

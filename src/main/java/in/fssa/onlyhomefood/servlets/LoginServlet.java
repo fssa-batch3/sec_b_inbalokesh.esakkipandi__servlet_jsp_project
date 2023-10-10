@@ -20,7 +20,7 @@ import in.fssa.onlyhomefood.service.UserService;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		UserService userService = new UserService();
-		
+
 		Long number = Long.parseLong(request.getParameter("phone_number"));
 		String password = request.getParameter("password");
 
@@ -48,9 +48,9 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			userService.loginUser(number, password);
-			
+
 			session.setAttribute("loggedNumber", number);
-			
+
 			if (number == 9876543218l) {
 				response.sendRedirect(request.getContextPath() + "/admin");
 			} else {
@@ -60,9 +60,9 @@ public class LoginServlet extends HttpServlet {
 		} catch (ServiceException | ValidationException e) {
 			String error = e.getMessage();
 			request.setAttribute("number", number);
-			
+
 			RequestDispatcher req = request.getRequestDispatcher("/login.jsp?errorMessage=" + error);
-			req.forward(request, response);		
+			req.forward(request, response);
 		}
 	}
 }

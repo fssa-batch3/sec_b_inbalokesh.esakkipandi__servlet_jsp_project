@@ -110,14 +110,59 @@
 		%>
 	</section>
 
+<div class="gif-container">
 	<!-- scooty gif -->
 	<div class="gif">
 		<img src="assets/Images/scooty.gif" alt="scooty img" height="150px"
 			width="150px">
 	</div>
+	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 
 	<script>
+		const searchBox = document.getElementById("search_food");
+	    searchBox.addEventListener("keyup", function findFood() {
+	      const input_search = document
+	        .getElementById("search_food")
+	        .value.toUpperCase()
+	        .trim()
+	        .split(/\s+/g)
+	        .join("");
+	
+	      const item = document.querySelectorAll("div.box");
+	
+	      // console.log(item)
+	
+	      const result = document.querySelector("div.no_result");
+	
+	      const item_name = document.getElementsByTagName("h4");
+	      // console.log(item_name);
+	      let count = 0;
+	      for (let i = 0; i < item_name.length; i++) {
+	        const a = item[i].getElementsByTagName("h4")[0];
+	
+	        const value = a.innerText || a.innerHTML || a.textContent;
+	
+	        if (input_search === "") {
+	          result.style.display = "none";
+	        }
+	        if (value.toUpperCase().trim().split(/\s+/g).join("").indexOf(input_search) > -1) {
+	          item[i].style.display = "";
+	          result.style.display = "none";
+	        } 
+	        else{
+	          item[i].style.display = "none";
+	        }
+	        if(item[i].style.display === "none"){      
+	            count++
+	        }
+	        if(count === item_name.length){
+	          result.style.display = "";
+	        }
+	      }
+	
+	    });
+    
 		const addToCarts = document.querySelectorAll("button.addCart");
 		addToCarts.forEach(function addCarts(add_foods) {
 			add_foods.addEventListener("click", function clickToAdd() {
@@ -127,7 +172,7 @@
 				
 
 				const product_id = this.dataset.id;
-				const userId = ${loggedNumber};
+				const userId = <%=loggedNumber%>;
 						
 				const exist = cartProducts.length && JSON.parse(localStorage.getItem("cart_product")).some(
 			            (data) => data.product_id === parseInt(product_id) && data.user_id === userId);
@@ -157,6 +202,8 @@
 				 
 			});
 		});
+		
+	
 	</script>
 </body>
 </html>

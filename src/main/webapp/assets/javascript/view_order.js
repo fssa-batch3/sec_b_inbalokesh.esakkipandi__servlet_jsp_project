@@ -17,7 +17,13 @@ const items = orderItem.filter((e) => e.orderId === orders.id);
 const foodData = product_list.filter((product) =>
 	items.some((id) => id.productId === product.id)
 );
-// console.log(foodData)
+
+const prices = pricesList.filter((price) =>
+	foodData.some((id) => price.product_id === id.id) &&
+	new Date(price.start_date) < new Date(orders.createdAt) &&
+	new Date(price.end_date) > new Date(orders.createdAt)
+);
+
 
 // <div class="popuup">
 const div_popup = document.createElement("div");
@@ -54,6 +60,12 @@ div_phead.append(p);
 
 // Order list //
 for (let i = 0; i < foodData.length; i++) {
+
+	let filterPrice = prices.find((e) => e.product_id === foodData[i].id);
+
+	let foodItems = items.find((e) => e.productId === foodData[i].id)
+
+	let priceOfFood = filterPrice === undefined ? foodData[i].price : filterPrice.price;
 	// <div class="order">
 	div_order = document.createElement("div");
 	div_order.setAttribute("class", "orderr");
@@ -80,22 +92,22 @@ for (let i = 0; i < foodData.length; i++) {
 
 	p = document.createElement("p");
 	p.setAttribute("class", "quantity");
-	p.innerText = items[i].quantityOrdered;
+	p.innerText = foodItems.quantityOrdered;
 	div_order.append(p);
 
 
 	p = document.createElement("p");
 	p.setAttribute("class", "cost");
-	p.innerText = `Rs. ${foodData[i].price * items[i].quantityOrdered}`;
+	p.innerText = `Rs. ${priceOfFood * foodItems.quantityOrdered}`;
 	div_order.append(p);
 
 	p = document.createElement("p");
 	p.setAttribute("class", "deliveryStatus");
-	if (items[i].orderStatus === "Not_delivered") {
-		p.innerText = "(" + items[i].deliveryTime[0] + ") " + "Not Delivered";
+	if (foodItems.orderStatus === "Not_delivered") {
+		p.innerText = "(" + foodItems.deliveryTime[0] + ") " + "Not Delivered";
 	}
 	else {
-		p.innerText = "(" + items[i].deliveryTime[0] + ") " + items[i].orderStatus;
+		p.innerText = "(" + foodItems.deliveryTime[0] + ") " + foodItems.orderStatus;
 	}
 	div_order.append(p);
 
@@ -282,18 +294,18 @@ function re_order() {
 	console.log(userNumber);
 	cartProduct = cartProduct.filter((e) => e.user_id != userNumber);
 	console.log(cartProduct);
-	
-	for(let i = 0; i < items.length; i++){
+
+	for (let i = 0; i < items.length; i++) {
 		let reorderItems = {
-			"user_id" : userNumber,
-			"product_id" : items[i].productId,
-			"quantity_ordered" : items[i].quantityOrdered,
-			"delivery_time" : items[i].deliveryTime
+			"user_id": userNumber,
+			"product_id": items[i].productId,
+			"quantity_ordered": items[i].quantityOrdered,
+			"delivery_time": items[i].deliveryTime
 		}
-		
+
 		cartProduct.push(reorderItems);
 	}
 	localStorage.setItem("cart_product", JSON.stringify(cartProduct));
 	alert("Your product is added to the cart");
-	window.location.href = "../cart";
+	window.location.href = "/onlyhomefoodWeb/cart";
 }
