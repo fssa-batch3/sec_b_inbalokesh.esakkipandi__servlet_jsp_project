@@ -6,7 +6,7 @@ const footer = `
                 <div class="footer">
                     <img src="${origin}/assets/Images/logo-facebook.svg" alt="facebook link">
                     <img src="${origin}/assets/Images/logo-instagram.svg" alt="instagram link">
-                    <img src="${origin}/assets/Images/logo-twitter.svg" alt="twitter link">
+                    <img src="${origin}/assets/Images/linkedin.png" alt="linkedin link">
                     <img src="${origin}/assets/Images/logo-whatsapp.svg" alt="whatsapp link">
                 </div>
                 <p>

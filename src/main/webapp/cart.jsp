@@ -558,23 +558,38 @@
       
       // Remove products button function//
       const removeFood = document.querySelectorAll("button.remove_cart");
-      removeFood.forEach(function removeItem(removeId) {
-    	  removeId.addEventListener("click", function () {
+      removeFood.forEach(function removeItems(removeId) {
+    	  removeId.addEventListener("click", function(){
+              const productId = parseInt(this.dataset.product_id); //Getting product id from the button
+    		  removeItem(productId);
+    	  });
+      });
+      
+      function removeItem(productId) {
 
-          const productId = parseInt(this.dataset.product_id); //Getting product id from the button
           console.log(productId);
 
-          const removeFood = userProducts.find((e) => e.product_id === productId); // Finding the product that matches the id
 
-          const indexOfItem = cartProducts.indexOf(removeFood); // Finding the Index of the Project
-          
-          cartProducts.splice(indexOfItem, 1); // Removeing the product
-			
-          localStorage.setItem("cart_product", JSON.stringify(cartProducts)); // Updating the cart in localStorage
-          
-          window.location.reload();
-        });
-      });
+          if(productId > 0){
+
+	          const removeFood = userProducts.find((e) => e.product_id === productId); // Finding the product that matches the id
+	
+	          const indexOfItem = cartProducts.indexOf(removeFood); // Finding the Index of the Project
+	          
+        	  console.log(indexOfItem);
+
+	          if(indexOfItem >= 0){
+	        	  
+	        	  console.log(indexOfItem);
+	   	          cartProducts.splice(indexOfItem, 1); // Removeing the product
+	   				
+	   	          localStorage.setItem("cart_product", JSON.stringify(cartProducts)); // Updating the cart in localStorage
+	   	          
+	   	          window.location.reload();
+	          }
+	     
+          }
+       }
 
       // plus quantity function//
 
@@ -596,7 +611,7 @@
           const cart_quantity = userProducts.find((e) => e.product_id === parseInt(idButton));
           console.log(userProducts);
           if (cart_quantity) {
-            cart_quantity.quantity_ordered = n.toString();
+            cart_quantity.quantity_ordered = n;
             localStorage.setItem("cart_product", JSON.stringify(cartProducts));
             window.location.reload();
           }
@@ -610,23 +625,30 @@
           const parent = this.parentNode;
           const num = parent.querySelector(".num");
           let n = parseInt(num.textContent);
-          if (n > 1) {
+          if (n >= 1) {
             n -= 1;
           }
-          num.textContent = n;
-		  	
+          
+    
           // getting the ID
           const parentBox = this.closest(".slist");
           const idButton = parentBox
             .querySelector(".remove_cart")
             .getAttribute("data-product_id");
           
-          const cart_quantity = userProducts.find((e) => e.product_id === parseInt(idButton));
-          
-          if (cart_quantity) {
-            cart_quantity.quantity_ordered = n.toString();
-            localStorage.setItem("cart_product", JSON.stringify(cartProducts));
-            window.location.reload();
+          if(n == 0){
+        	  removeItem(parseInt(idButton));
+          }
+          else{
+              num.textContent = n;
+
+	          const cart_quantity = userProducts.find((e) => e.product_id === parseInt(idButton));
+	          
+	          if (cart_quantity) {
+	            cart_quantity.quantity_ordered = n;
+	            localStorage.setItem("cart_product", JSON.stringify(cartProducts));
+	            window.location.reload();
+	          }
           }
         });
       });

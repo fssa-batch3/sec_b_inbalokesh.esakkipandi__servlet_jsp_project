@@ -120,6 +120,19 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
 	<script>
+	
+		/*window.addEventListener("scroll", () => {
+			const scrollable = document.documentElement.scrollHeight - window.innerHeight - (317);
+			const scrolled = window.scrollY;
+		
+			console.log(Math.ceil(scrolled) == scrollable);
+			if(Math.ceil(scrolled) >= scrollable){
+			}
+
+			
+		});*/
+		
+		
 		const searchBox = document.getElementById("search_food");
 	    searchBox.addEventListener("keyup", function findFood() {
 	      const input_search = document

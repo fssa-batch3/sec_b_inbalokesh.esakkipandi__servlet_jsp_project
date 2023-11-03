@@ -71,11 +71,7 @@ public class CreateOrderServlet extends HttpServlet {
 
 			items.add(orderItems);
 		}
-
-		for (OrderedItems i : items) {
-			System.out.println(i);
-		}
-
+		
 		OrderService orderService = new OrderService();
 
 		try {

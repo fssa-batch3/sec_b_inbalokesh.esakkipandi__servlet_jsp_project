@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -23,6 +23,5 @@ public class HomeServlet extends HttpServlet {
 		RequestDispatcher req = request.getRequestDispatcher("/index.jsp");
 		req.forward(request, response);
 	}
-
-
+	
 }

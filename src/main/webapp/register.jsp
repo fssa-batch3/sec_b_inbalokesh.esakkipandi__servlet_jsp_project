@@ -141,16 +141,16 @@ h4.password_note {
 			<%
 			}
 			%>
-			<label>Name</label> <input type="text" minlength="3"
+			<label>Name*</label> <input type="text" minlength="3"
 				pattern="[a-zA-Z ]+" name="user_name"
 				value="<%=user == null ? "" : user.getName()%>" placeholder=""
-				required /> <br> <br> <label>Mobile No</label> <input
+				required /> <br> <br> <label>Mobile No*</label> <input
 				type="tel" pattern="[6-9]{1}[0-9]{9}" title="+91 format number only"
 				maxlength="10" name="phone_number" placeholder="" required
 				value="<%=user == null ? "" : user.getMobNumber()%>" /> <br> <br>
-			<label>Email</label> <input type="email" name="email" placeholder=""
+			<label>Email*</label> <input type="email" name="email" placeholder=""
 				value="<%=user == null ? "" : user.getEmail()%>" required> <br>
-			<br> <label>Password</label> <input type="password"
+			<br> <label>Password*</label> <input type="password"
 				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 				title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 				name="password" placeholder="" required />

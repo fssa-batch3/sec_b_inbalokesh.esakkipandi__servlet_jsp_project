@@ -1,4 +1,3 @@
-<%@page import="java.util.stream.Collectors"%>
 <%@page import="in.fssa.onlyhomefood.model.Address"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -94,12 +93,10 @@
 
 	<script type="text/javascript">
 	
-	const addressList = <%=addressList%> || [];
-	if(addressList){	
+	const addressList = <%=addressList%>;
+	if(addressList.length > 0){	
 		let profileAddress = addressList.find((e)=> e.defaultStatus == true);
-		console.log(profileAddress);
-		document.getElementById("user_address").innerText = profileAddress.streetName + ", " + profileAddress.townName
-		+", " + profileAddress.city + " - " + profileAddress.pinCode+ ".";
+		document.getElementById("user_address").innerText = profileAddress.streetName + ", " + profileAddress.townName + ", " + profileAddress.city + " - " + profileAddress.pinCode+ ".";
 	}
 	
 	const orderList = <%=orders%> || [];
