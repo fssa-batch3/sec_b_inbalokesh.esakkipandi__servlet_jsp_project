@@ -215,7 +215,7 @@ section{
 input[type=button]{
     background-color: #ff6b16;
     color: white;
-    width: 23rem;
+    width: 27rem;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -428,12 +428,17 @@ p.dstreet{
         height:11px;
         width:11px;
     }
+    img.emptyCart{
+    	width:100%;
+    }
 
 }
 
 @media (max-width:500px){
     .placed{
         margin:0 20px;
+        height: 35%;
+        width:200px;
     }
 
 }

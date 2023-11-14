@@ -268,6 +268,9 @@ textarea{
    }
 }
 @media (max-width:380px){
+	section{
+        margin-top: 150px; 
+    }
    .history h2{
     margin-top:50px;
    }

@@ -120,7 +120,6 @@
     if (userProducts === [] || userProducts.length === 0) {
       document.querySelector(".emptyCart").style.display = "";
       document.querySelector(".noItems").style.display = "";
-      document.getElementById("addItems").style = "width: 27rem";
     }
     else {
 

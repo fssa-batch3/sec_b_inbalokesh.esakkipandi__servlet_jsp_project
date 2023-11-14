@@ -17,7 +17,7 @@
 					alt="facebook link"> <img
 					src="<%=request.getContextPath()%>/assets/Images/logo-instagram.svg"
 					alt="instagram link"> <img
-					src="<%=request.getContextPath()%>/assets/Images/logo-twitter.svg"
+					src="<%=request.getContextPath()%>/assets/Images/linkedin.png"
 					alt="twitter link"> <img
 					src="<%=request.getContextPath()%>/assets/Images/logo-whatsapp.svg"
 					alt="whatsapp link">
