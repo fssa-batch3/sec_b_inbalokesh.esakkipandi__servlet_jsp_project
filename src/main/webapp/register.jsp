@@ -4,14 +4,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registration form</title>
 <style>
 /* Style for the entire signup box */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 img {
-	width: 220px;
+	width: 50%;
 	position: relative;
-	left: 27%;
+	left: 25%;
 }
 
 .signupbox {
@@ -34,8 +39,7 @@ h4 {
 }
 
 form {
-	width: 300px;
-	margin-left: 20px;
+	padding:0 20px;
 }
 
 form label {
@@ -45,7 +49,7 @@ form label {
 }
 
 form input {
-	width: 132%;
+	width: 96%;
 	padding: 7px;
 	border: none;
 	border: 1px solid #ccc;
@@ -57,7 +61,7 @@ form input.inp {
 }
 
 button {
-	width: 410px;
+	width: 100%;
 	height: 35px;
 	margin-top: 20px;
 	border: none;
@@ -79,7 +83,8 @@ button:hover {
 }
 
 h4.password_note {
-	width: 400px;
+	width: 408px;
+	text-align:justify;
 	margin-bottom: 0;
 }
 
@@ -109,6 +114,17 @@ h4.password_note {
 .danger strong {
 	color: #ed114e;
 }
+
+@media (max-width:490px){
+    .signupbox{
+        width:auto;
+        padding: 10px 0;
+        margin:20px;
+	}
+    h4.password_note{
+    	width: 75vw;
+    }
+} 
 </style>
 </head>
 <body>

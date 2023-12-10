@@ -437,7 +437,7 @@ p.dstreet{
 @media (max-width:500px){
     .placed{
         margin:0 20px;
-        height: 35%;
+        height:260px;
         width:200px;
     }
 

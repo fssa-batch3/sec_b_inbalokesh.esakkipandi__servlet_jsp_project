@@ -75,6 +75,7 @@ public class CreateOrderServlet extends HttpServlet {
 		OrderService orderService = new OrderService();
 
 		try {
+			System.out.print(order +" " + items);
 			orderService.createNewOrder(order, items);
 
 			ResponseEntity res = new ResponseEntity();

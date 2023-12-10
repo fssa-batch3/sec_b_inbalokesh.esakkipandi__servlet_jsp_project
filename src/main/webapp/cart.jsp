@@ -210,7 +210,7 @@
         		option.innerText = "Breakfast (7:30 AM to 9:00 AM)";
         	}
         	else if(find.delivery_time === "Lunch"){	
-        		option.innerText = "Lunch (12:30 AM to 2:00 PM)";
+        		option.innerText = "Lunch (12:30 PM to 2:00 PM)";
         	}
         	else if(find.delivery_time === "Dinner"){
         		option.innerText = "Dinner (7:00 PM to 8:30 PM)";
@@ -230,7 +230,7 @@
         option.setAttribute("class", "selected_option");
         option.setAttribute("id", "option_2");
         option.setAttribute("value", "Lunch");
-        option.innerText = "Lunch (12:30 AM to 2:00 PM)";
+        option.innerText = "Lunch (12:30 PM to 2:00 PM)";
         select.append(option);
 
         option = document.createElement("option");
